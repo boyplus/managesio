@@ -1,3 +1,4 @@
+using Agoda.IoC.Core;
 using TodoApp.Core.Models;
 using TodoApp.Core.Rspositories;
 
@@ -8,6 +9,7 @@ public interface ITodoService
     public List<Todo> GetTodos();
 }
 
+[RegisterSingleton]
 public class TodoService : ITodoService
 {
     private readonly ITodoRepository _todoRepository;
