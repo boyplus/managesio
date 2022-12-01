@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managesio.WebApi", "Manages
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managesio.Core", "Managesio.Core\Managesio.Core.csproj", "{F52F268A-B7F5-4294-89F6-8CE37A89C239}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managesio.UnitTests", "Managesio.UnitTests\Managesio.UnitTests.csproj", "{4F2FC06D-DC22-4F36-9A10-B7D5FC89D180}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F2FC06D-DC22-4F36-9A10-B7D5FC89D180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F2FC06D-DC22-4F36-9A10-B7D5FC89D180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F2FC06D-DC22-4F36-9A10-B7D5FC89D180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F2FC06D-DC22-4F36-9A10-B7D5FC89D180}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
