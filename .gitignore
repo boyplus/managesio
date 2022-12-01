@@ -321,4 +321,4 @@ sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,aspnetcore,react
 
-/src/TodoApp.WebApi/wwwroot
+/src/Managesio.WebApi/wwwroot
