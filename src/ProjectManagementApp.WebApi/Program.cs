@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo{Title = "Todo App",Version = "V1"});
     c.AddAutoRestCompatible();
-    c.UseInlineDefinitionsForEnums();g
+    c.UseInlineDefinitionsForEnums();
     c.MakeValueTypePropertiesRequired();
     c.DefineOperationIdFromControllerNameAndActionName();
     c.EnableAnnotations();
