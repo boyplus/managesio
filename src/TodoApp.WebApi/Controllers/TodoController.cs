@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using TodoApp.Core.Services;
 using TodoApp.Core.Models;
 
@@ -15,6 +16,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
+    [SwaggerOperation("Get_Todo_List")]
     public List<Todo> GetTodos()
     {
         return _todoService.GetTodos();
