@@ -1,20 +1,28 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["TodoApp.WebApi/TodoApp.WebApi.csproj", "TodoApp.WebApi/"]
-RUN dotnet restore "TodoApp.WebApi/TodoApp.WebApi.csproj"
+COPY ["Managesio.WebApi/Managesio.WebApi.csproj", "Managesio.WebApi/"]
+COPY ["Managesio.Core/Managesio.Core.csproj", "Managesio.Core/"]
+RUN dotnet restore "Managesio.WebApi/Managesio.WebApi.csproj"
 COPY . .
-WORKDIR "/src/TodoApp.WebApi"
-RUN dotnet build "TodoApp.WebApi.csproj" -c Release -o /app/build
+WORKDIR "/src/Managesio.WebApi"
+RUN dotnet build "Managesio.WebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "TodoApp.WebApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "Managesio.WebApi.csproj" -c Release -o /app/publish
+
+FROM node:16 as client-build
+WORKDIR /app
+COPY ./Managesio.ClientSide/package*.json  .
+RUN yarn
+COPY ./Managesio.ClientSide .
+RUN yarn build
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TodoApp.WebApi.dll"]
+COPY --from=client-build /Managesio.WebApi/wwwroot/ ./wwwroot
+ENTRYPOINT ["dotnet", "Managesio.WebApi.dll"]
