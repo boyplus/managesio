@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using TodoApp.Core.Services;
-using TodoApp.Core.Models;
+using ProjectManagementApp.Core.Services;
+using ProjectManagementApp.Core.Models;
 
-namespace TodoApp.WebApi.Controllers;
+namespace ProjectManagementApp.WebApi.Controllers;
 
 [ApiController]
 [Route("api/todo")]

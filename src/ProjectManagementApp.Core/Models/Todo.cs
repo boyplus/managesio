@@ -1,4 +1,4 @@
-namespace TodoApp.Core.Models;
+namespace ProjectManagementApp.Core.Models;
 
 public class Todo
 {

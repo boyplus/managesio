@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TodoApp.Core\TodoApp.Core.csproj" />
+      <ProjectReference Include="..\ProjectManagementApp.Core\ProjectManagementApp.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>

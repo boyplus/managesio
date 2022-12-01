@@ -1,4 +1,4 @@
-namespace TodoApp.Core.Configs;
+namespace ProjectManagementApp.Core.Configs;
 
 public class AssemblyInfo
 {

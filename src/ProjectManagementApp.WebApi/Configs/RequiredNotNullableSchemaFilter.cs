@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace TodoApp.WebApi.Configs;
+namespace ProjectManagementApp.WebApi.Configs;
 
 public class RequiredNotNullableSchemaFilter : ISchemaFilter
 {

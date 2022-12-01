@@ -1,7 +1,7 @@
 using Agoda.IoC.Core;
-using TodoApp.Core.Models;
+using ProjectManagementApp.Core.Models;
 
-namespace TodoApp.Core.Rspositories;
+namespace ProjectManagementApp.Core.Rspositories;
 
 public interface ITodoRepository
 {
