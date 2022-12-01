@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using ProjectManagementApp.Core.Services;
-using ProjectManagementApp.Core.Models;
+using Managesio.Core.Services;
+using Managesio.Core.Models;
 
-namespace ProjectManagementApp.WebApi.Controllers;
+namespace Managesio.WebApi.Controllers;
 
 [ApiController]
 [Route("api/todo")]

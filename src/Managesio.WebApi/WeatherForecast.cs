@@ -1,4 +1,4 @@
-namespace ProjectManagementApp.WebApi;
+namespace Managesio.WebApi;
 
 public class WeatherForecast
 {

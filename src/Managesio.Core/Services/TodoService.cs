@@ -1,8 +1,8 @@
 using Agoda.IoC.Core;
-using ProjectManagementApp.Core.Models;
-using ProjectManagementApp.Core.Rspositories;
+using Managesio.Core.Models;
+using Managesio.Core.Rspositories;
 
-namespace ProjectManagementApp.Core.Services;
+namespace Managesio.Core.Services;
 
 public interface ITodoService
 {

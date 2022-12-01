@@ -1,4 +1,4 @@
-namespace ProjectManagementApp.Core.Configs;
+namespace Managesio.Core.Configs;
 
 public class AssemblyInfo
 {

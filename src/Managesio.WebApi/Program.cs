@@ -1,8 +1,8 @@
 using Agoda.IoC.NetCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.Extensions;
-using ProjectManagementApp.Core.Configs;
-using ProjectManagementApp.WebApi.Configs;
+using Managesio.Core.Configs;
+using Managesio.WebApi.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 

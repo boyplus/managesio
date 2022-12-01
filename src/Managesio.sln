@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagementApp.WebApi", "ProjectManagementApp.WebApi\ProjectManagementApp.WebApi.csproj", "{BC79A690-6D51-4179-B5B1-9E9D83DAAB10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managesio.WebApi", "Managesio.WebApi\Managesio.WebApi.csproj", "{BC79A690-6D51-4179-B5B1-9E9D83DAAB10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagementApp.Core", "ProjectManagementApp.Core\ProjectManagementApp.Core.csproj", "{F52F268A-B7F5-4294-89F6-8CE37A89C239}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Managesio.Core", "Managesio.Core\Managesio.Core.csproj", "{F52F268A-B7F5-4294-89F6-8CE37A89C239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
