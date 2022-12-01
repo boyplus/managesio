@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.WebApi", "TodoApp.WebApi\TodoApp.WebApi.csproj", "{BC79A690-6D51-4179-B5B1-9E9D83DAAB10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Core", "TodoApp.Core\TodoApp.Core.csproj", "{F52F268A-B7F5-4294-89F6-8CE37A89C239}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{BC79A690-6D51-4179-B5B1-9E9D83DAAB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC79A690-6D51-4179-B5B1-9E9D83DAAB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC79A690-6D51-4179-B5B1-9E9D83DAAB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52F268A-B7F5-4294-89F6-8CE37A89C239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
