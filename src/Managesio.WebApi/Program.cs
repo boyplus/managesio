@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo{Title = "Todo App",Version = "V1"});
+    c.SwaggerDoc("v1", new OpenApiInfo{Title = "Managesio App",Version = "V1"});
     c.AddAutoRestCompatible();
     c.UseInlineDefinitionsForEnums();
     c.MakeValueTypePropertiesRequired();

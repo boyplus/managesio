@@ -14,9 +14,9 @@ RUN dotnet build "Managesio.WebApi.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "Managesio.WebApi.csproj" -c Release -o /app/publish
 
-FROM node:16 as client-build
+FROM node:16-alpine as client-build
 WORKDIR /app
-COPY ./Managesio.ClientSide/package*.json  .
+COPY ./Managesio.ClientSide/package.json ./Managesio.ClientSide/yarn.lock ./
 RUN yarn
 COPY ./Managesio.ClientSide .
 RUN yarn build
