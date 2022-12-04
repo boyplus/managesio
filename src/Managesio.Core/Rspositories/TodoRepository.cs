@@ -8,23 +8,26 @@ public interface ITodoRepository
     public List<Todo> GetTodos();
 }
 
-[RegisterSingleton]
+[RegisterPerRequest]
 public class TodoRepository : ITodoRepository
 {
     private readonly List<Todo> mockTodos;
-    public TodoRepository()
+    private readonly ApiDbContext _context;
+    public TodoRepository(ApiDbContext context)
     {
-        mockTodos = new List<Todo>()
-        {
-            new() {Title = "mock-title-1", Note = "mock-note-1"},
-            new() {Title = "mock-title-2", Note = "mock-note-2"},
-            new() {Title = "mock-title-3", Note = "mock-note-5"}
-        };
+        _context = context;
+        // mockTodos = new List<Todo>()
+        // {
+        //     new() {Title = "mock-title-1", Note = "mock-note-1"},
+        //     new() {Title = "mock-title-2", Note = "mock-note-2"},
+        //     new() {Title = "mock-title-3", Note = "mock-note-5"}
+        // };
         
     }
     
     public List<Todo> GetTodos()
     {
-        return mockTodos;
+        var todos = _context.Todos.ToList();
+        return todos;
     }
 }

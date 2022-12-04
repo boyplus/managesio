@@ -6,10 +6,10 @@ namespace Managesio.WebApi.Startup;
 
 public static class AddDbContext
 {
-    public static void AddDbConnection(this IServiceCollection serviceCollection, Secrets secrets)
+    public static void AddPosgresDbConnection(this IServiceCollection serviceCollection, Secrets secrets)
     {
         var connectionString = secrets.DbConnectionString;
-        Console.WriteLine("inside add db connection");
+        Console.WriteLine("inside");
         Console.WriteLine(connectionString);
         serviceCollection.AddDbContext<ApiDbContext>(options =>
             options.UseNpgsql(

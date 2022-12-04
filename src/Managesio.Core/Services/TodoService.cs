@@ -9,7 +9,7 @@ public interface ITodoService
     public List<Todo> GetTodos();
 }
 
-[RegisterSingleton]
+[RegisterPerRequest]
 public class TodoService : ITodoService
 {
     private readonly ITodoRepository _todoRepository;
