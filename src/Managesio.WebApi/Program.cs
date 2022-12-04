@@ -3,8 +3,17 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.Extensions;
 using Managesio.Core.Configs;
 using Managesio.WebApi.Configs;
+using Managesio.WebApi.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var env = builder.Environment.EnvironmentName;
+
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddJsonFile($"appsettings.{env}.json", true)
+    .AddEnvironmentVariables()
+    .Build();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -18,6 +27,9 @@ builder.Services.AddSwaggerGen(c =>
     c.EnableAnnotations();
     c.SchemaFilter<RequiredNotNullableSchemaFilter>();
 });
+
+var secrets = configuration.GetSection(nameof(Secrets)).Get<Secrets>();
+builder.Services.AddDbConnection(secrets);
 
 builder.Services.AutoWireAssembly(new[] { typeof(AssemblyInfo).Assembly },false);
 
