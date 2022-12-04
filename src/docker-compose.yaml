@@ -29,7 +29,7 @@ services:
     restart: always
     volumes:
       - db_volume:/var/lib/postgresql/data
-      - ./dbscripts/seed.sql :/docker-entrypoint-initdb.d/seed.sql
+      - ./Managesio.WebApi/dbscripts/seed.sql:/docker-entrypoint-initdb.d/seed.sql
     environment:
       POSTGRES_USER: "managesiouser"
       POSTGRES_PASSWORD: "managesio-password"
