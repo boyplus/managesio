@@ -1,15 +1,40 @@
 version: "3.4"
 
+networks:
+  managesio-dev:
+    driver: bridge
+
 services:
-  hostmanage-inbox:
-    image: managesio-web-api
+  managesio-api:
+    image: managesio-api:latest
+    depends_on:
+      - "postgres_image"
     build:
       context: .
       dockerfile: Managesio.WebApi/Dockerfile
-      network: host
       args:
         BUILD_VERSION: ${ASSEMBLY_VERSION-0.0.0.1}
     ports:
       - 5050:80
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DB_CONNECTION_STRING: "host=postgres_image;port=5432;database=managesiodb;username=managesiouser;password=managesio-password"
+    networks:
+      - managesio-dev
+
+  postgres_image:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./dbscripts/seed.sql :/docker-entrypoint-initdb.d/seed.sql
+    environment:
+      POSTGRES_USER: "managesiouser"
+      POSTGRES_PASSWORD: "managesio-password"
+      POSTGRES_DB: "managesiodb"
+    networks:
+      - managesio-dev
+volumes:
+  db_volume:
