@@ -6,7 +6,7 @@ namespace Managesio.WebApi.Startup;
 
 public static class AddDbContext
 {
-    public static void AddPosgresDbConnection(this IServiceCollection serviceCollection, Secrets secrets)
+    public static void AddPostgresDbConnection(this IServiceCollection serviceCollection, Secrets secrets)
     {
         var connectionString = secrets.DbConnectionString;
         serviceCollection.AddDbContext<ApiDbContext>(options =>

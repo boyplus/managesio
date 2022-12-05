@@ -1,3 +1,4 @@
+using Managesio.Core.Entities;
 using Managesio.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

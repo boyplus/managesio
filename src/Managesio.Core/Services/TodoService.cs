@@ -1,5 +1,5 @@
 using Agoda.IoC.Core;
-using Managesio.Core.Models;
+using Managesio.Core.Entities;
 using Managesio.Core.Rspositories;
 
 namespace Managesio.Core.Services;

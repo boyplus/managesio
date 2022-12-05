@@ -1,4 +1,4 @@
-namespace Managesio.Core.Models;
+namespace Managesio.Core.Entities;
 
 public class Todo
 {

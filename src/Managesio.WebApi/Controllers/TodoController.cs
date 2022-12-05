@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Managesio.Core.Services;
-using Managesio.Core.Models;
+using Managesio.Core.Entities;
 
 namespace Managesio.WebApi.Controllers;
 

@@ -1,4 +1,4 @@
-using Agoda.IoC.Core;
+using Managesio.Core.Entities;
 using Managesio.Core.Maps;
 using Microsoft.EntityFrameworkCore;
 

@@ -29,7 +29,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var secrets = configuration.GetSection(nameof(Secrets)).Get<Secrets>();
-builder.Services.AddPosgresDbConnection(secrets);
+builder.Services.AddPostgresDbConnection(secrets);
 
 builder.Services.AutoWireAssembly(new[] { typeof(AssemblyInfo).Assembly },false);
 
