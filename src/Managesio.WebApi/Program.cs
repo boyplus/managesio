@@ -2,6 +2,7 @@ using Agoda.IoC.NetCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.Extensions;
 using Managesio.Core.Configs;
+using Managesio.Core.Middlewares;
 using Managesio.WebApi.Configs;
 using Managesio.WebApi.Startup;
 
@@ -46,6 +47,8 @@ app.UseRouting();
 app.UseStaticFiles();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.MapControllers();
 
 app.MapFallbackToFile("index.html");

@@ -10,7 +10,7 @@ public interface ITodoRepository
     public Todo GetById(int id);
     
     public void Create(string title, string note);
-    public void DeleteById(int id);
+    public void Delete(int id);
 }
 
 [RegisterPerRequest]
@@ -45,7 +45,7 @@ public class TodoRepository : ITodoRepository
         _context.SaveChanges();
     }
 
-    public void DeleteById(int id)
+    public void Delete(int id)
     {
         var todo = GetById(id);
         _context.Todos.Remove(todo);

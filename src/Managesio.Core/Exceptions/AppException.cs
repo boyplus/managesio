@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Managesio.Core.Helpers;
+namespace Managesio.Core.Exceptions;
 
 public class AppException : Exception
 {

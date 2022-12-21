@@ -28,15 +28,8 @@ public class TodoController : ControllerBase
     [SwaggerOperation("Get_Todo")]
     public ActionResult<Todo> GetTodo(int id)
     {
-        try
-        {
-            var todo = _todoService.GetById(id);
-            return Ok(todo);
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound("Todo not found");
-        }
+        var todo = _todoService.GetById(id);
+        return Ok(todo);
     }
 
     [HttpPost]
@@ -52,14 +45,7 @@ public class TodoController : ControllerBase
     [SwaggerOperation("Delete_Todo")]
     public ActionResult DeleteTodo(int id)
     {
-        try
-        {
-            _todoService.DeleteById(id);
-            return Ok();
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound("Todo not found");
-        }
+        _todoService.Delete(id);
+        return Ok();
     }
 }
