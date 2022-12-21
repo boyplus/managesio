@@ -7,6 +7,7 @@ namespace Managesio.Core.Rspositories;
 public interface ITodoRepository
 {
     public List<Todo> GetTodos();
+    public void AddTodo(string title, string note);
 }
 
 [RegisterPerRequest]
@@ -22,5 +23,12 @@ public class TodoRepository : ITodoRepository
     {
         var todos = _context.Todos.ToList();
         return todos;
+    }
+
+    public void AddTodo(string title, string note)
+    {
+        var todo = new Todo { Title = title, Note = note };
+        _context.Todos.Add(todo);
+        _context.SaveChanges();
     }
 }

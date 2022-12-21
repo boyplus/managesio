@@ -1,3 +1,4 @@
+using Managesio.Core.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Managesio.Core.Services;
@@ -17,9 +18,16 @@ public class TodoController : ControllerBase
 
     [HttpGet]
     [SwaggerOperation("Get_Todo_List")]
-    public List<Todo> GetTodos()
+    public ActionResult<List<Todo>> GetTodos()
     {
-        return _todoService.GetTodos();
+        return Ok(_todoService.GetTodos());
     }
 
+    [HttpPost]
+    [SwaggerOperation("Add_Todo")]
+    public ActionResult AddTodo([FromBody] AddTodoRequest todo)
+    {
+        _todoService.AddTodo(todo.Title,todo.Note);
+        return Ok();
+    }
 }

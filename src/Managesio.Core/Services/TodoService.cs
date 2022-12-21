@@ -7,6 +7,7 @@ namespace Managesio.Core.Services;
 public interface ITodoService
 {
     public List<Todo> GetTodos();
+    public void AddTodo(string title, string note);
 }
 
 [RegisterPerRequest]
@@ -21,5 +22,10 @@ public class TodoService : ITodoService
     public List<Todo> GetTodos()
     {
         return _todoRepository.GetTodos();
+    }
+
+    public void AddTodo(string title, string note)
+    {
+        _todoRepository.AddTodo(title,note);
     }
 }
