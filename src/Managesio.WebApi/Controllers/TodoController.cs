@@ -20,7 +20,7 @@ public class TodoController : ControllerBase
     [SwaggerOperation("Get_Todos")]
     public ActionResult<List<Todo>> GetTodos()
     {
-        return Ok(_todoService.GetTodos());
+        return Ok(_todoService.GetAll());
     }
 
     [HttpGet]
@@ -30,7 +30,7 @@ public class TodoController : ControllerBase
     {
         try
         {
-            var todo = _todoService.GetTodo(id);
+            var todo = _todoService.GetById(id);
             return Ok(todo);
         }
         catch (KeyNotFoundException e)
@@ -43,7 +43,7 @@ public class TodoController : ControllerBase
     [SwaggerOperation("Add_Todo")]
     public ActionResult AddTodo([FromBody] AddTodoRequest todo)
     {
-        _todoService.AddTodo(todo.Title,todo.Note);
+        _todoService.Create(todo.Title,todo.Note);
         return Ok();
     }
 
@@ -54,7 +54,7 @@ public class TodoController : ControllerBase
     {
         try
         {
-            _todoService.DeleteTodo(id);
+            _todoService.DeleteById(id);
             return Ok();
         }
         catch (KeyNotFoundException e)

@@ -6,10 +6,10 @@ namespace Managesio.Core.Services;
 
 public interface ITodoService
 {
-    public List<Todo> GetTodos();
-    public Todo GetTodo(int id);
-    public void AddTodo(string title, string note);
-    public void DeleteTodo(int id);
+    public List<Todo> GetAll();
+    public Todo GetById(int id);
+    public void Create(string title, string note);
+    public void DeleteById(int id);
 }
 
 [RegisterPerRequest]
@@ -21,23 +21,23 @@ public class TodoService : ITodoService
         _todoRepository = todoRepository;
     }
 
-    public List<Todo> GetTodos()
+    public List<Todo> GetAll()
     {
-        return _todoRepository.GetTodos();
+        return _todoRepository.GetAll();
     }
 
-    public Todo GetTodo(int id)
+    public Todo GetById(int id)
     {
-        return _todoRepository.GetTodo(id);
+        return _todoRepository.GetById(id);
     }
 
-    public void AddTodo(string title, string note)
+    public void Create(string title, string note)
     {
-        _todoRepository.AddTodo(title,note);
+        _todoRepository.Create(title,note);
     }
 
-    public void DeleteTodo(int id)
+    public void DeleteById(int id)
     {
-        _todoRepository.DeleteTodo(id);
+        _todoRepository.DeleteById(id);
     }
 }

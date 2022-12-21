@@ -6,11 +6,11 @@ namespace Managesio.Core.Rspositories;
 
 public interface ITodoRepository
 {
-    public List<Todo> GetTodos();
-    public Todo GetTodo(int id);
+    public List<Todo> GetAll();
+    public Todo GetById(int id);
     
-    public void AddTodo(string title, string note);
-    public void DeleteTodo(int id);
+    public void Create(string title, string note);
+    public void DeleteById(int id);
 }
 
 [RegisterPerRequest]
@@ -22,13 +22,13 @@ public class TodoRepository : ITodoRepository
         _context = context;
     }
     
-    public List<Todo> GetTodos()
+    public List<Todo> GetAll()
     {
         var todos = _context.Todos.ToList();
         return todos;
     }
 
-    public Todo GetTodo(int id)
+    public Todo GetById(int id)
     {
         var todo = _context.Todos.Find(id);
         if (todo == null)
@@ -38,16 +38,16 @@ public class TodoRepository : ITodoRepository
         return todo;
     }
 
-    public void AddTodo(string title, string note)
+    public void Create(string title, string note)
     {
         var todo = new Todo { Title = title, Note = note };
         _context.Todos.Add(todo);
         _context.SaveChanges();
     }
 
-    public void DeleteTodo(int id)
+    public void DeleteById(int id)
     {
-        var todo = GetTodo(id);
+        var todo = GetById(id);
         _context.Todos.Remove(todo);
         _context.SaveChanges();
     }
