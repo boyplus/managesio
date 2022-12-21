@@ -10,14 +10,12 @@ public class ApiDbContext : DbContext
     {
         
     }
-
-    public DbSet<Todo> Todos { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         new TodoMap(modelBuilder.Entity<Todo>());
     }
     
-
+    // Entities
+    public DbSet<Todo> Todos { get; set; }
 }

@@ -17,10 +17,26 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
-    [SwaggerOperation("Get_Todo_List")]
+    [SwaggerOperation("Get_Todos")]
     public ActionResult<List<Todo>> GetTodos()
     {
         return Ok(_todoService.GetTodos());
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [SwaggerOperation("Get_Todo")]
+    public ActionResult<Todo> GetTodo(int id)
+    {
+        try
+        {
+            var todo = _todoService.GetTodo(id);
+            return Ok(todo);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound("Todo not found");
+        }
     }
 
     [HttpPost]
@@ -29,5 +45,21 @@ public class TodoController : ControllerBase
     {
         _todoService.AddTodo(todo.Title,todo.Note);
         return Ok();
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [SwaggerOperation("Delete_Todo")]
+    public ActionResult DeleteTodo(int id)
+    {
+        try
+        {
+            _todoService.DeleteTodo(id);
+            return Ok();
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound("Todo not found");
+        }
     }
 }
