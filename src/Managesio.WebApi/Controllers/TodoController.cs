@@ -26,7 +26,7 @@ public class TodoController : ControllerBase
     [HttpGet]
     [Route("{id}")]
     [SwaggerOperation("Get_Todo")]
-    public ActionResult<Todo> GetTodo(int id)
+    public ActionResult<Todo> GetTodo([FromRoute] int id)
     {
         var todo = _todoService.GetById(id);
         return Ok(todo);
@@ -40,10 +40,19 @@ public class TodoController : ControllerBase
         return Ok();
     }
 
+    [HttpPatch]
+    [Route("{id}")]
+    [SwaggerOperation("Update_Todo")]
+    public ActionResult UpdateTodo([FromBody] UpdateTodoRequest todo,[FromRoute] int id)
+    {
+        _todoService.Update(id,todo);
+        return Ok();
+    }
+
     [HttpDelete]
     [Route("{id}")]
     [SwaggerOperation("Delete_Todo")]
-    public ActionResult DeleteTodo(int id)
+    public ActionResult DeleteTodo([FromRoute]int id)
     {
         _todoService.Delete(id);
         return Ok();

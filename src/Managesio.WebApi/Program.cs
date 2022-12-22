@@ -1,7 +1,9 @@
+using AutoMapper;
 using Agoda.IoC.NetCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.Extensions;
 using Managesio.Core.Configs;
+using Managesio.Core.MapperProfiles;
 using Managesio.Core.Middlewares;
 using Managesio.WebApi.Configs;
 using Managesio.WebApi.Startup;
@@ -17,6 +19,8 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

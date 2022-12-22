@@ -1,4 +1,5 @@
 using Agoda.IoC.Core;
+using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 using Managesio.Core.Rspositories;
 
@@ -10,6 +11,7 @@ public interface ITodoService
     public Todo GetById(int id);
     public void Create(string title, string note);
     public void Delete(int id);
+    public void Update(int id, UpdateTodoRequest todoRequest);
 }
 
 [RegisterPerRequest]
@@ -39,5 +41,10 @@ public class TodoService : ITodoService
     public void Delete(int id)
     {
         _todoRepository.Delete(id);
+    }
+
+    public void Update(int id, UpdateTodoRequest todo)
+    {
+        _todoRepository.Update(id, todo);
     }
 }
