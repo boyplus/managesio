@@ -1,4 +1,3 @@
-using AutoMapper;
 using Agoda.IoC.NetCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.Extensions;

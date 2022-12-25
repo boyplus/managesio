@@ -36,6 +36,7 @@ public class TodoService : ITodoService
     public void Create(string title, string note)
     {
         _todoRepository.Create(title,note);
+        Console.WriteLine("inside service");
     }
 
     public void Delete(int id)

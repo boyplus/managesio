@@ -1,4 +1,5 @@
 using Managesio.Core.Dtos;
+using Managesio.Core.Entities;
 using Managesio.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,5 +21,12 @@ public class AuthController : ControllerBase
     public void RegisterUser([FromBody] RegisterUserRequest user)
     {
         _authService.RegisterUser(user.Email,user.Password);
+    }
+
+    [HttpGet]
+    [Route("user")]
+    public List<User> GetAllUser()
+    {
+        return _authService.GetAllUser();
     }
 }

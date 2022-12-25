@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --emptyOutDir",
     "preview": "vite preview",
     "gen-client": "openapi-generator-cli generate -i http://localhost:5050/swagger/v1/swagger.json -g typescript-axios -o src/api/generated --additional-properties=disallowAdditionalPropertiesIfNotPresent=false,supportsES6=true,typescriptThreePlus=true --enable-post-process-file --remove-operation-id-prefix"
   },

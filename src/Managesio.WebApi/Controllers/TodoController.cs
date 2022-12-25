@@ -20,7 +20,8 @@ public class TodoController : ControllerBase
     [SwaggerOperation("Get_Todos")]
     public ActionResult<List<Todo>> GetTodos()
     {
-        return Ok(_todoService.GetAll());
+        var todos = _todoService.GetAll();
+        return Ok(todos);
     }
 
     [HttpGet]
@@ -37,7 +38,7 @@ public class TodoController : ControllerBase
     public ActionResult AddTodo([FromBody] AddTodoRequest todo)
     {
         _todoService.Create(todo.Title,todo.Note);
-        return Ok();
+        return Ok("Todo is created");
     }
 
     [HttpPatch]
