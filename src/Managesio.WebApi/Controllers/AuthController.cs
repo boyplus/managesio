@@ -39,9 +39,10 @@ public class AuthController : ControllerBase
     [HttpGet]
     [Route("profile")]
     [Authorize]
-    public async Task GetProfile()
+    public async Task<ActionResult<User>> GetProfile()
     {
-        Console.WriteLine("inside controller");
+        var profile = await _authService.GetProfileAsync();
+        return Ok(profile); ;
     }
 
     [HttpGet]

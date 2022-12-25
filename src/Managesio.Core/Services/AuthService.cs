@@ -18,6 +18,7 @@ public interface IAuthService
     public Task RegisterUserAsync(RegisterUserRequest model);
     public Task<List<User>> GetAllUserAsync();
     public Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
+    public Task<User> GetProfileAsync();
 }
 
 [RegisterPerRequest]
@@ -25,12 +26,14 @@ public class AuthService : IAuthService
 {
     private readonly IUserService _userService;
     private readonly IUserRepository _userRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly Secrets _secrets;
     private readonly IMapper _mapper;
-    public AuthService(IUserService userService, IUserRepository userRepository, IOptions<Secrets> secrets, IMapper mapper)
+    public AuthService(IUserService userService, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IOptions<Secrets> secrets, IMapper mapper)
     {
         _userService = userService;
         _userRepository = userRepository;
+        _httpContextAccessor = httpContextAccessor;
         _secrets = secrets.Value;
         _mapper = mapper;
     }
@@ -61,6 +64,13 @@ public class AuthService : IAuthService
 
         var token = GenerateJwtToken(user);
         return new AuthenticateResponse() { Jwt = token };
+    }
+
+    public async Task<User> GetProfileAsync()
+    {
+        var httpContext = _httpContextAccessor.HttpContext;
+        var user = (User)httpContext?.Items["User"];
+        return user;
     }
 
     public async Task<List<User>> GetAllUserAsync()
