@@ -53,7 +53,6 @@ public class AuthService : IAuthService
 
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
     {
-        Console.WriteLine("secret is "+_secrets.JwtSecret);
         var user = await _userRepository.FindByEmail(model.Email);
         if (user == null || !Verify(model.Password, user.Password))
         {

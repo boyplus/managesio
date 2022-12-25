@@ -7,8 +7,8 @@ using Managesio.Core.Rspositories;
 namespace Managesio.Core.Services;
 public interface IUserService
 {
+    public Task<User> GetByIdAsync(int id);
     public Task<List<User>> GetAllAsync();
-
     public Task CreateAsync(User user);
 }
 
@@ -20,6 +20,12 @@ public class UserService : IUserService
     public UserService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
+    }
+
+    public async Task<User> GetByIdAsync(int id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        return user;
     }
 
     public async Task<List<User>> GetAllAsync()

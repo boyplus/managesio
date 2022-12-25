@@ -7,6 +7,7 @@ namespace Managesio.Core.Rspositories;
 
 public interface IUserRepository
 {
+    public Task<User> GetByIdAsync(int id);
     public Task<List<User>> GetAllAsync();
     public Task CreateAsync(User user);
     public Task<User> FindByEmail(string email);
@@ -20,6 +21,12 @@ public class UserRepository : IUserRepository
     public UserRepository(ApiDbContext context)
     {
         _context = context;
+    }
+
+    public async Task<User> GetByIdAsync(int id)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        return user;
     }
 
     public async Task<List<User>> GetAllAsync()

@@ -1,3 +1,4 @@
+using Managesio.Core;
 using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 using Managesio.Core.Services;
@@ -33,6 +34,14 @@ public class AuthController : ControllerBase
             return Unauthorized("Email or password is incorrect");
         }
         return Ok(authenticateResponse);
+    }
+
+    [HttpGet]
+    [Route("profile")]
+    [Authorize]
+    public async Task GetProfile()
+    {
+        Console.WriteLine("inside controller");
     }
 
     [HttpGet]
