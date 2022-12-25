@@ -7,7 +7,9 @@ using Managesio.Core.Rspositories;
 namespace Managesio.Core.Services;
 public interface IUserService
 {
-    public List<User> GetAll();
+    public Task<List<User>> GetAllAsync();
+
+    public Task CreateAsync(User user);
 }
 
 [RegisterPerRequest]
@@ -20,8 +22,13 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public List<User> GetAll()
+    public async Task<List<User>> GetAllAsync()
     {
-        return _userRepository.GetAll();
+        return await _userRepository.GetAllAsync();
+    }
+
+    public async Task CreateAsync(User user)
+    {
+        await _userRepository.CreateAsync(user);
     }
 }

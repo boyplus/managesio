@@ -18,15 +18,16 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("register")]
-    public void RegisterUser([FromBody] RegisterUserRequest user)
+    public async Task RegisterUser([FromBody] RegisterUserRequest model)
     {
-        _authService.RegisterUser(user.Email,user.Password);
+        await _authService.RegisterUserAsync(model);
     }
 
     [HttpGet]
     [Route("user")]
-    public List<User> GetAllUser()
+    public async Task<List<User>> GetAllUser()
     {
-        return _authService.GetAllUser();
+        var users =await _authService.GetAllUserAsync();
+        return users;
     }
 }
