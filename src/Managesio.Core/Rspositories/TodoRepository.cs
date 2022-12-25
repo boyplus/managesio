@@ -54,7 +54,7 @@ public class TodoRepository : ITodoRepository
     {
         var todo = await GetByIdAsync(id);
         _context.Todos.Remove(todo);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(int id, UpdateTodoRequest todo)

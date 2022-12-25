@@ -38,7 +38,6 @@ public class TodoController : ControllerBase
     public async Task<ActionResult> AddTodo([FromBody] AddTodoRequest todo)
     {
         await _todoService.CreateAsync(todo.Title,todo.Note);
-        Console.WriteLine("Complete in controller");
         return Ok("Todo is created");
     }
 
