@@ -25,14 +25,14 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("signin")]
-    public async Task<ActionResult<string>> AuthenticateUser([FromBody] AuthenticateRequest model)
+    public async Task<ActionResult<AuthenticateResponse>> AuthenticateUser([FromBody] AuthenticateRequest model)
     {
-        var authenticateStatus = await _authService.Authenticate(model);
-        if (authenticateStatus)
+        var authenticateResponse = await _authService.Authenticate(model);
+        if (authenticateResponse == null)
         {
-            return Ok("User is login");
+            return Unauthorized("Email or password is incorrect");
         }
-        return Unauthorized("Email or password is incorrect");
+        return Ok(authenticateResponse);
     }
 
     [HttpGet]

@@ -1,4 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Agoda.IoC.Core;
 using AutoMapper;
 using Managesio.Core.Configs;
@@ -7,6 +9,7 @@ using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
 using Managesio.Core.Rspositories;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Managesio.Core.Services;
 
@@ -14,7 +17,7 @@ public interface IAuthService
 {
     public Task RegisterUserAsync(RegisterUserRequest model);
     public Task<List<User>> GetAllUserAsync();
-    public Task<bool> Authenticate(AuthenticateRequest model);
+    public Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
 }
 
 [RegisterPerRequest]
@@ -48,16 +51,17 @@ public class AuthService : IAuthService
         await _userService.CreateAsync(user);
     }
 
-    public async Task<bool> Authenticate(AuthenticateRequest model)
+    public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
     {
         Console.WriteLine("secret is "+_secrets.JwtSecret);
         var user = await _userRepository.FindByEmail(model.Email);
-        if (user != null && Verify(model.Password, user.Password))
+        if (user == null || !Verify(model.Password, user.Password))
         {
-            return true;
+            return null;
         }
 
-        return false;
+        var token = GenerateJwtToken(user);
+        return new AuthenticateResponse() { Jwt = token };
     }
 
     public async Task<List<User>> GetAllUserAsync()
@@ -66,11 +70,18 @@ public class AuthService : IAuthService
         return users;
     }
 
-    private string generateJwtTolen(User user)
+    private string GenerateJwtToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        return "";
-        // var key = Encoding.ASCII.GetBytes();
+        var key = Encoding.ASCII.GetBytes(_secrets.JwtSecret);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[]{new Claim("id",user.Id.ToString())}),
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 
     private string Encrypt(string plainPassword)
