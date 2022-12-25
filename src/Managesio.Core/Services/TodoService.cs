@@ -7,11 +7,11 @@ namespace Managesio.Core.Services;
 
 public interface ITodoService
 {
-    public List<Todo> GetAll();
-    public Todo GetById(int id);
-    public void Create(string title, string note);
-    public void Delete(int id);
-    public void Update(int id, UpdateTodoRequest todoRequest);
+    public Task<List<Todo>> GetAllAsync();
+    public Task<Todo> GetByIdAsync(int id);
+    public Task CreateAsync(string title, string note);
+    public Task DeleteAsync(int id);
+    public Task UpdateAsync(int id, UpdateTodoRequest todoRequest);
 }
 
 [RegisterPerRequest]
@@ -23,29 +23,30 @@ public class TodoService : ITodoService
         _todoRepository = todoRepository;
     }
 
-    public List<Todo> GetAll()
+    public async Task<List<Todo>> GetAllAsync()
     {
-        return _todoRepository.GetAll();
+        var todos = await _todoRepository.GetAllAsync();
+        return todos;
     }
 
-    public Todo GetById(int id)
+    public async Task<Todo> GetByIdAsync(int id)
     {
-        return _todoRepository.GetById(id);
+        var todo = await _todoRepository.GetByIdAsync(id); 
+        return todo;
     }
 
-    public void Create(string title, string note)
+    public async Task CreateAsync(string title, string note)
     {
-        _todoRepository.Create(title,note);
-        Console.WriteLine("inside service");
+        await _todoRepository.CreateAsync(title,note);
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        _todoRepository.Delete(id);
+        await _todoRepository.DeleteAsync(id);
     }
 
-    public void Update(int id, UpdateTodoRequest todo)
+    public async Task UpdateAsync(int id, UpdateTodoRequest todo)
     {
-        _todoRepository.Update(id, todo);
+        await _todoRepository.UpdateAsync(id, todo);
     }
 }

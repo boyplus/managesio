@@ -3,16 +3,17 @@ using Agoda.IoC.Core;
 using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 using Managesio.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Managesio.Core.Rspositories;
 
 public interface ITodoRepository
 {
-    public List<Todo> GetAll();
-    public Todo GetById(int id);
-    public void Create(string title, string note);
-    public void Delete(int id);
-    public void Update(int id, UpdateTodoRequest todo);
+    public Task<List<Todo>> GetAllAsync();
+    public Task<Todo> GetByIdAsync(int id);
+    public Task CreateAsync(string title, string note);
+    public Task DeleteAsync(int id);
+    public Task UpdateAsync(int id, UpdateTodoRequest todoRequest);
 }
 
 [RegisterPerRequest]
@@ -26,15 +27,15 @@ public class TodoRepository : ITodoRepository
         _mapper = mapper;
     }
     
-    public List<Todo> GetAll()
+    public async Task<List<Todo>> GetAllAsync()
     {
-        var todos = _context.Todos.ToList();
+        var todos = await _context.Todos.ToListAsync();
         return todos;
     }
 
-    public Todo GetById(int id)
+    public async Task<Todo> GetByIdAsync(int id)
     {
-        var todo = _context.Todos.Find(id);
+        var todo = await _context.Todos.FindAsync(id);
         if (todo == null)
         {
             throw new KeyNotFoundException("Todo not found");
@@ -42,25 +43,25 @@ public class TodoRepository : ITodoRepository
         return todo;
     }
 
-    public void Create(string title, string note)
+    public async Task CreateAsync(string title, string note)
     {
-        var todo = new Todo { Title = title, Note = note };
-        _context.Todos.Add(todo);
-        _context.SaveChanges();
+        var todo = new Todo { Title = title, Note = note, UserId = 1};
+        await _context.Todos.AddAsync(todo);
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        var todo = GetById(id);
+        var todo = await GetByIdAsync(id);
         _context.Todos.Remove(todo);
         _context.SaveChanges();
     }
 
-    public void Update(int id, UpdateTodoRequest todo)
+    public async Task UpdateAsync(int id, UpdateTodoRequest todo)
     {
-        var foundTodo = GetById(id);
+        var foundTodo = await GetByIdAsync(id);
         _mapper.Map(todo, foundTodo);
         _context.Todos.Update(foundTodo);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }

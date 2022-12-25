@@ -18,44 +18,45 @@ public class TodoController : ControllerBase
 
     [HttpGet]
     [SwaggerOperation("Get_Todos")]
-    public ActionResult<List<Todo>> GetTodos()
+    public async Task<ActionResult<List<Todo>>> GetTodos()
     {
-        var todos = _todoService.GetAll();
+        var todos = await _todoService.GetAllAsync();
         return Ok(todos);
     }
 
     [HttpGet]
     [Route("{id}")]
     [SwaggerOperation("Get_Todo")]
-    public ActionResult<Todo> GetTodo([FromRoute] int id)
+    public async Task<ActionResult<Todo>> GetTodo([FromRoute] int id)
     {
-        var todo = _todoService.GetById(id);
+        var todo = await _todoService.GetByIdAsync(id);
         return Ok(todo);
     }
 
     [HttpPost]
     [SwaggerOperation("Add_Todo")]
-    public ActionResult AddTodo([FromBody] AddTodoRequest todo)
+    public async Task<ActionResult> AddTodo([FromBody] AddTodoRequest todo)
     {
-        _todoService.Create(todo.Title,todo.Note);
+        await _todoService.CreateAsync(todo.Title,todo.Note);
+        Console.WriteLine("Complete in controller");
         return Ok("Todo is created");
     }
 
     [HttpPatch]
     [Route("{id}")]
     [SwaggerOperation("Update_Todo")]
-    public ActionResult UpdateTodo([FromBody] UpdateTodoRequest todo,[FromRoute] int id)
+    public async Task<ActionResult> UpdateTodo([FromBody] UpdateTodoRequest todo,[FromRoute] int id)
     {
-        _todoService.Update(id,todo);
+        await _todoService.UpdateAsync(id,todo);
         return Ok();
     }
 
     [HttpDelete]
     [Route("{id}")]
     [SwaggerOperation("Delete_Todo")]
-    public ActionResult DeleteTodo([FromRoute]int id)
+    public async Task<ActionResult> DeleteTodo([FromRoute]int id)
     {
-        _todoService.Delete(id);
+        await _todoService.DeleteAsync(id);
         return Ok();
     }
 }
