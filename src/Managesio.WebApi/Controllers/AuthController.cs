@@ -23,6 +23,18 @@ public class AuthController : ControllerBase
         await _authService.RegisterUserAsync(model);
     }
 
+    [HttpPost]
+    [Route("signin")]
+    public async Task<ActionResult<string>> AuthenticateUser([FromBody] AuthenticateRequest model)
+    {
+        var authenticateStatus = await _authService.Authenticate(model);
+        if (authenticateStatus)
+        {
+            return Ok("User is login");
+        }
+        return Unauthorized("Email or password is incorrect");
+    }
+
     [HttpGet]
     [Route("user")]
     public async Task<List<User>> GetAllUser()

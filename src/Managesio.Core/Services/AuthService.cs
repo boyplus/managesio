@@ -10,8 +10,8 @@ namespace Managesio.Core.Services;
 public interface IAuthService
 {
     public Task RegisterUserAsync(RegisterUserRequest model);
-
     public Task<List<User>> GetAllUserAsync();
+    public Task<bool> Authenticate(AuthenticateRequest model);
 }
 
 [RegisterPerRequest]
@@ -29,7 +29,6 @@ public class AuthService : IAuthService
 
     public async Task RegisterUserAsync(RegisterUserRequest model)
     {
-        Console.WriteLine("Register user "+model.Email);
         // Check whether email is already used
         var foundUser = await _userRepository.FindByEmail(model.Email);
         if (foundUser != null)
@@ -44,15 +43,31 @@ public class AuthService : IAuthService
         await _userService.CreateAsync(user);
     }
 
+    public async Task<bool> Authenticate(AuthenticateRequest model)
+    {
+        var user = await _userRepository.FindByEmail(model.Email);
+        if (user != null && Verify(model.Password, user.Password))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public async Task<List<User>> GetAllUserAsync()
     {
         var users = await _userService.GetAllAsync();
         return users;
     }
 
-    public string Encrypt(string plainPassword)
+    private string Encrypt(string plainPassword)
     {
         string hashPassword = BCrypt.Net.BCrypt.HashPassword(plainPassword);
         return hashPassword;
+    }
+
+    private bool Verify(string password,string hashPassword)
+    {
+        return BCrypt.Net.BCrypt.Verify(password,hashPassword);
     }
 }
