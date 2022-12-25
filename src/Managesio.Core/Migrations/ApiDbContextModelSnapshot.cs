@@ -38,7 +38,8 @@ namespace Managesio.Core.Migrations
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_todo");
 
                     b.ToTable("todo", (string)null);
                 });

@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Managesio.Core.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20221225080200_InitialCreate")]
+    [Migration("20221225092425_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -41,7 +41,8 @@ namespace Managesio.Core.Migrations
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_todo");
 
                     b.ToTable("todo", (string)null);
                 });

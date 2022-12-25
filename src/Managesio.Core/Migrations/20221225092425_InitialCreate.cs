@@ -22,7 +22,7 @@ namespace Managesio.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_todo", x => x.id);
+                    table.PrimaryKey("pk_todo", x => x.id);
                 });
         }
 

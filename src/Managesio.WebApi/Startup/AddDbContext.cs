@@ -12,7 +12,7 @@ public static class AddDbContext
         serviceCollection.AddDbContext<ApiDbContext>(options =>
             options.UseNpgsql(
                 connectionString
-            )
+            ).UseSnakeCaseNamingConvention()
         );
     }
 }
