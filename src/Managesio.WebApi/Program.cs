@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var secrets = configuration.GetSection(nameof(Secrets)).Get<Secrets>();
+builder.Services.Configure<Secrets>(configuration.GetSection(nameof(Secrets)));
 builder.Services.AddPostgresDbConnection(secrets);
 
 builder.Services.AutoWireAssembly(new[] { typeof(AssemblyInfo).Assembly },false);

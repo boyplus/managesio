@@ -1,6 +1,6 @@
 namespace Managesio.Core.Configs;
-
 public class Secrets
 {
-    public String DbConnectionString { get; set; }
+    public string DbConnectionString { get; set; }
+    public string JwtSecret { get; set; }
 }

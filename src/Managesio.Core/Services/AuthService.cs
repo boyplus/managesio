@@ -1,9 +1,12 @@
+using System.IdentityModel.Tokens.Jwt;
 using Agoda.IoC.Core;
 using AutoMapper;
+using Managesio.Core.Configs;
 using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
 using Managesio.Core.Rspositories;
+using Microsoft.Extensions.Options;
 
 namespace Managesio.Core.Services;
 
@@ -19,11 +22,13 @@ public class AuthService : IAuthService
 {
     private readonly IUserService _userService;
     private readonly IUserRepository _userRepository;
+    private readonly Secrets _secrets;
     private readonly IMapper _mapper;
-    public AuthService(IUserService userService, IUserRepository userRepository, IMapper mapper)
+    public AuthService(IUserService userService, IUserRepository userRepository, IOptions<Secrets> secrets, IMapper mapper)
     {
         _userService = userService;
         _userRepository = userRepository;
+        _secrets = secrets.Value;
         _mapper = mapper;
     }
 
@@ -45,6 +50,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> Authenticate(AuthenticateRequest model)
     {
+        Console.WriteLine("secret is "+_secrets.JwtSecret);
         var user = await _userRepository.FindByEmail(model.Email);
         if (user != null && Verify(model.Password, user.Password))
         {
@@ -58,6 +64,13 @@ public class AuthService : IAuthService
     {
         var users = await _userService.GetAllAsync();
         return users;
+    }
+
+    private string generateJwtTolen(User user)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        return "";
+        // var key = Encoding.ASCII.GetBytes();
     }
 
     private string Encrypt(string plainPassword)
