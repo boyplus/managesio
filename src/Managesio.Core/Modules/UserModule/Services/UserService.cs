@@ -1,12 +1,13 @@
 using Agoda.IoC.Core;
-using Managesio.Core.User.Repositories;
+using Managesio.Core.Entities;
+using Managesio.Core.Modules.UserModule.Repositories;
 
-namespace Managesio.Core.User.Services;
+namespace Managesio.Core.Modules.UserModule.Services;
 public interface IUserService
 {
-    public Task<Entities.User> GetByIdAsync(int id);
-    public Task<List<Entities.User>> GetAllAsync();
-    public Task CreateAsync(Entities.User user);
+    public Task<User> GetByIdAsync(int id);
+    public Task<List<User>> GetAllAsync();
+    public Task CreateAsync(User user);
 }
 
 [RegisterPerRequest]
@@ -19,18 +20,18 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<Entities.User> GetByIdAsync(int id)
+    public async Task<User> GetByIdAsync(int id)
     {
         var user = await _userRepository.GetByIdAsync(id);
         return user;
     }
 
-    public async Task<List<Entities.User>> GetAllAsync()
+    public async Task<List<User>> GetAllAsync()
     {
         return await _userRepository.GetAllAsync();
     }
 
-    public async Task CreateAsync(Entities.User user)
+    public async Task CreateAsync(User user)
     {
         await _userRepository.CreateAsync(user);
     }

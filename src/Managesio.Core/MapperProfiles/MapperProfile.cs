@@ -1,7 +1,7 @@
 using AutoMapper;
-using Managesio.Core.Auth.Dtos;
-using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
+using Managesio.Core.Modules.AuthModule.Dtos;
+using Managesio.Core.Modules.TodoModule.Dtos;
 
 namespace Managesio.Core.MapperProfiles;
 

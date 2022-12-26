@@ -1,8 +1,8 @@
-using Managesio.Core.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Managesio.Core.Services;
 using Managesio.Core.Entities;
+using Managesio.Core.Modules.TodoModule.Dtos;
+using Managesio.Core.Modules.TodoModule.Services;
 
 namespace Managesio.WebApi.Controllers;
 

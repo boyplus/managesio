@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Managesio.Core.Dtos;
+namespace Managesio.Core.Modules.TodoModule.Dtos;
 
-public class AddTodoRequest
+public class UpdateTodoRequest
 {
     [Required]
     public string Title { get; set; }

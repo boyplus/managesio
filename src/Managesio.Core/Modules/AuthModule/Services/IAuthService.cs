@@ -1,6 +1,6 @@
-using Managesio.Core.Auth.Dtos;
+using Managesio.Core.Modules.AuthModule.Dtos;
 
-namespace Managesio.Core.Auth.Services;
+namespace Managesio.Core.Modules.AuthModule.Services;
 public interface IAuthService
 {
     public Task RegisterUserAsync(RegisterUserRequest model);

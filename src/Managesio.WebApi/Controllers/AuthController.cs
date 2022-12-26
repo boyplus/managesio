@@ -1,8 +1,8 @@
 using Managesio.Core;
 using Managesio.Core.Attributes;
-using Managesio.Core.Auth.Dtos;
-using Managesio.Core.Auth.Services;
 using Managesio.Core.Entities;
+using Managesio.Core.Modules.AuthModule.Dtos;
+using Managesio.Core.Modules.AuthModule.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Managesio.WebApi.Controllers;

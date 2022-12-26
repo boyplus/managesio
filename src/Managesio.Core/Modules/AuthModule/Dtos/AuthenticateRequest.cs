@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Managesio.Core.Auth.Dtos;
+namespace Managesio.Core.Modules.AuthModule.Dtos;
 
 public class AuthenticateRequest
 {

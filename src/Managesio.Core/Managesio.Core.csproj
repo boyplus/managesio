@@ -23,7 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="User\Entities" />
+      <Folder Include="Modules" />
+      <Folder Include="Rspositories" />
     </ItemGroup>
 
 </Project>

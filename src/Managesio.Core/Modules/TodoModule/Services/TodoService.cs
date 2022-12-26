@@ -1,9 +1,9 @@
 using Agoda.IoC.Core;
-using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
-using Managesio.Core.Rspositories;
+using Managesio.Core.Modules.TodoModule.Dtos;
+using Managesio.Core.Modules.TodoModule.Repositories;
 
-namespace Managesio.Core.Services;
+namespace Managesio.Core.Modules.TodoModule.Services;
 
 public interface ITodoService
 {
@@ -29,7 +29,7 @@ public class TodoService : ITodoService
         return todos;
     }
 
-    public async Task<Todo> GetByIdAsync(int id)
+    public async Task<Entities.Todo> GetByIdAsync(int id)
     {
         var todo = await _todoRepository.GetByIdAsync(id); 
         return todo;

@@ -3,18 +3,15 @@ using System.Security.Claims;
 using System.Text;
 using Agoda.IoC.Core;
 using AutoMapper;
-using Managesio.Core.Auth.Dtos;
 using Managesio.Core.Configs;
-using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
-using Managesio.Core.Rspositories;
-using Managesio.Core.Services;
-using Managesio.Core.User.Repositories;
-using Managesio.Core.User.Services;
+using Managesio.Core.Modules.AuthModule.Dtos;
+using Managesio.Core.Modules.UserModule.Repositories;
+using Managesio.Core.Modules.UserModule.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Managesio.Core.Auth.Services;
+namespace Managesio.Core.Modules.AuthModule.Services;
 
 [RegisterPerRequest]
 public class AuthService : IAuthService

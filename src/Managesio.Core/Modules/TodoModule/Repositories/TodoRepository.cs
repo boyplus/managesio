@@ -1,20 +1,11 @@
-using AutoMapper;
 using Agoda.IoC.Core;
-using Managesio.Core.Dtos;
+using AutoMapper;
 using Managesio.Core.Entities;
 using Managesio.Core.Models;
+using Managesio.Core.Modules.TodoModule.Dtos;
 using Microsoft.EntityFrameworkCore;
 
-namespace Managesio.Core.Rspositories;
-
-public interface ITodoRepository
-{
-    public Task<List<Todo>> GetAllAsync();
-    public Task<Todo> GetByIdAsync(int id);
-    public Task CreateAsync(string title, string note);
-    public Task DeleteAsync(int id);
-    public Task UpdateAsync(int id, UpdateTodoRequest todoRequest);
-}
+namespace Managesio.Core.Modules.TodoModule.Repositories;
 
 [RegisterPerRequest]
 public class TodoRepository : ITodoRepository
