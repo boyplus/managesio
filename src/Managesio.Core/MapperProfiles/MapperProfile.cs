@@ -1,4 +1,5 @@
 using AutoMapper;
+using Managesio.Core.Auth.Dtos;
 using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 

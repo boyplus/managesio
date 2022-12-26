@@ -3,23 +3,16 @@ using System.Security.Claims;
 using System.Text;
 using Agoda.IoC.Core;
 using AutoMapper;
+using Managesio.Core.Auth.Dtos;
 using Managesio.Core.Configs;
-using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
 using Managesio.Core.Rspositories;
+using Managesio.Core.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Managesio.Core.Services;
-
-public interface IAuthService
-{
-    public Task RegisterUserAsync(RegisterUserRequest model);
-    public Task<List<User>> GetAllUserAsync();
-    public Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
-    public Task<User> GetProfileAsync();
-}
+namespace Managesio.Core.Auth.Services;
 
 [RegisterPerRequest]
 public class AuthService : IAuthService
