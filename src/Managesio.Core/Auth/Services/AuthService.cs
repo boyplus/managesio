@@ -9,6 +9,8 @@ using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
 using Managesio.Core.Rspositories;
 using Managesio.Core.Services;
+using Managesio.Core.User.Repositories;
+using Managesio.Core.User.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -40,7 +42,7 @@ public class AuthService : IAuthService
             throw new AppException("Email is already registered");
         }
         
-        var user = _mapper.Map<User>(model);
+        var user = _mapper.Map<Entities.User>(model);
         
         // hash password
         user.Password = Encrypt(user.Password);
@@ -59,20 +61,20 @@ public class AuthService : IAuthService
         return new AuthenticateResponse() { Jwt = token };
     }
 
-    public async Task<User> GetProfileAsync()
+    public async Task<Entities.User> GetProfileAsync()
     {
         var httpContext = _httpContextAccessor.HttpContext;
-        var user = (User)httpContext?.Items["User"];
+        var user = (Entities.User)httpContext?.Items["User"];
         return user;
     }
 
-    public async Task<List<User>> GetAllUserAsync()
+    public async Task<List<Entities.User>> GetAllUserAsync()
     {
         var users = await _userService.GetAllAsync();
         return users;
     }
 
-    private string GenerateJwtToken(User user)
+    private string GenerateJwtToken(Entities.User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_secrets.JwtSecret);

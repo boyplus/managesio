@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Managesio.Core.Configs;
 using Managesio.Core.Services;
+using Managesio.Core.User.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

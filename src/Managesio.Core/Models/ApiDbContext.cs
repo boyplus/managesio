@@ -13,6 +13,6 @@ public class ApiDbContext : DbContext
     // Entities
     public DbSet<Todo> Todos { get; set; }
 
-    public DbSet<User> Users { get; set; }
+    public DbSet<Entities.User> Users { get; set; }
     // public DbSet<User> Users { get; set; }
 }

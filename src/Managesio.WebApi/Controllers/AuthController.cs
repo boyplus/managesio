@@ -1,7 +1,7 @@
 using Managesio.Core;
+using Managesio.Core.Attributes;
 using Managesio.Core.Auth.Dtos;
 using Managesio.Core.Auth.Services;
-using Managesio.Core.Dtos;
 using Managesio.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,15 +1,14 @@
-using Managesio.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Managesio.Core;
+namespace Managesio.Core.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        var user = (User)context.HttpContext.Items["User"];
+        var user = (Entities.User)context.HttpContext.Items["User"];
         if (user == null)
         {
             // not logged in
