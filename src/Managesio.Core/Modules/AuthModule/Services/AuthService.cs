@@ -4,6 +4,7 @@ using System.Text;
 using Agoda.IoC.Core;
 using AutoMapper;
 using Managesio.Core.Configs;
+using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
 using Managesio.Core.Modules.AuthModule.Dtos;
 using Managesio.Core.Modules.UserModule.Repositories;
@@ -58,20 +59,20 @@ public class AuthService : IAuthService
         return new AuthenticateResponse() { Jwt = token };
     }
 
-    public async Task<Entities.User> GetProfileAsync()
+    public User GetProfileAsync()
     {
         var httpContext = _httpContextAccessor.HttpContext;
-        var user = (Entities.User)httpContext?.Items["User"];
+        var user = (User)httpContext?.Items["User"];
         return user;
     }
 
-    public async Task<List<Entities.User>> GetAllUserAsync()
+    public async Task<List<User>> GetAllUserAsync()
     {
         var users = await _userService.GetAllAsync();
         return users;
     }
 
-    private string GenerateJwtToken(Entities.User user)
+    private string GenerateJwtToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_secrets.JwtSecret);

@@ -23,30 +23,30 @@ public class TodoService : ITodoService
         _todoRepository = todoRepository;
     }
 
-    public async Task<List<Todo>> GetAllAsync()
+    public Task<List<Todo>> GetAllAsync()
     {
-        var todos = await _todoRepository.GetAllAsync();
-        return todos;
+        var todos1 = _todoRepository.GetAllAsync();
+        return todos1;
     }
 
-    public async Task<Entities.Todo> GetByIdAsync(int id)
+    public Task<Todo> GetByIdAsync(int id)
     {
-        var todo = await _todoRepository.GetByIdAsync(id); 
+        var todo = _todoRepository.GetByIdAsync(id); 
         return todo;
     }
 
-    public async Task CreateAsync(string title, string note)
+    public Task CreateAsync(string title, string note)
     {
-        await _todoRepository.CreateAsync(title,note);
+        return _todoRepository.CreateAsync(title,note);
     }
 
-    public async Task DeleteAsync(int id)
+    public Task DeleteAsync(int id)
     {
-        await _todoRepository.DeleteAsync(id);
+        return _todoRepository.DeleteAsync(id);
     }
 
-    public async Task UpdateAsync(int id, UpdateTodoRequest todo)
+    public Task UpdateAsync(int id, UpdateTodoRequest todo)
     {
-        await _todoRepository.UpdateAsync(id, todo);
+        return _todoRepository.UpdateAsync(id, todo);
     }
 }

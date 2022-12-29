@@ -21,6 +21,7 @@ public class TodoController : ControllerBase
     public async Task<ActionResult<List<Todo>>> GetTodos()
     {
         var todos = await _todoService.GetAllAsync();
+        Console.WriteLine("complete get todo in controller");
         return Ok(todos);
     }
 

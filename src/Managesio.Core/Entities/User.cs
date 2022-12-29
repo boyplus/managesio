@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Managesio.Core.Entities;
 
 namespace Managesio.Core.Entities;
 
@@ -9,6 +8,7 @@ namespace Managesio.Core.Entities;
 public class User
 {
     [Key]
+    [JsonIgnore]
     public int Id { get; set; }
     public string Email { get; set; }
     public string Firstname { get; set; }

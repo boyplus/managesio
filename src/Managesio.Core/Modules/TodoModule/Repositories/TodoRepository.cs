@@ -21,6 +21,7 @@ public class TodoRepository : ITodoRepository
     public async Task<List<Todo>> GetAllAsync()
     {
         var todos = await _context.Todos.ToListAsync();
+        Console.WriteLine("complete in repo");
         return todos;
     }
 

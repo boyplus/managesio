@@ -1,4 +1,3 @@
-using Managesio.Core;
 using Managesio.Core.Attributes;
 using Managesio.Core.Entities;
 using Managesio.Core.Modules.AuthModule.Dtos;
@@ -40,9 +39,9 @@ public class AuthController : ControllerBase
     [HttpGet]
     [Route("profile")]
     [Authorize]
-    public async Task<ActionResult<User>> GetProfile()
+    public ActionResult<User> GetProfile()
     {
-        var profile = await _authService.GetProfileAsync();
+        var profile = _authService.GetProfileAsync();
         return Ok(profile); ;
     }
 
