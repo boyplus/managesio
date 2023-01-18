@@ -13,7 +13,8 @@ public class User
     public string Email { get; set; }
     public string Firstname { get; set; }
     public string Lastname { get; set; }
-    
+    public int? Otp { get; set; }
+
     [JsonIgnore]
     public List<Todo> Todos { get; set; }
 

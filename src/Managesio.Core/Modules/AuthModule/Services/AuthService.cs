@@ -9,6 +9,7 @@ using Managesio.Core.Exceptions;
 using Managesio.Core.Modules.AuthModule.Dtos;
 using Managesio.Core.Modules.UserModule.Repositories;
 using Managesio.Core.Modules.UserModule.Services;
+using Managesio.Core.Modules.UtilModule;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,13 +20,15 @@ public class AuthService : IAuthService
 {
     private readonly IUserService _userService;
     private readonly IUserRepository _userRepository;
+    private readonly IOtpService _otpService;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly Secrets _secrets;
     private readonly IMapper _mapper;
-    public AuthService(IUserService userService, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IOptions<Secrets> secrets, IMapper mapper)
+    public AuthService(IUserService userService, IUserRepository userRepository, IOtpService otpService, IHttpContextAccessor httpContextAccessor, IOptions<Secrets> secrets, IMapper mapper)
     {
         _userService = userService;
         _userRepository = userRepository;
+        _otpService = otpService;
         _httpContextAccessor = httpContextAccessor;
         _secrets = secrets.Value;
         _mapper = mapper;
@@ -40,9 +43,9 @@ public class AuthService : IAuthService
             throw new AppException("Email is already registered");
         }
         
-        var user = _mapper.Map<Entities.User>(model);
+        var user = _mapper.Map<User>(model);
         
-        // hash password
+        // hash password and create user
         user.Password = Encrypt(user.Password);
         await _userService.CreateAsync(user);
     }

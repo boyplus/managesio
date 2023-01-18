@@ -6,6 +6,7 @@ namespace Managesio.Core.Modules.EmailModule.Services;
 public interface IEmailService
 {
     public Task SendEmailAsync(string toEmail, string subject, string content);
+    public Task SendVerificationEmailAsync(string email, int otp);
 }
 
 [RegisterSingleton]
@@ -37,5 +38,12 @@ public class EmailService : IEmailService
             Content = content
         };
         await _emailRepository.SendEmailAsync(email);
+    }
+
+    public async Task SendVerificationEmailAsync(string email,int otp)
+    { 
+        await SendEmailAsync(email,
+            "Please verify your managesio account",
+            $"Please enter {otp} to managesio application to verify your account");
     }
 }
