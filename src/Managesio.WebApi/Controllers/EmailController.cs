@@ -1,3 +1,4 @@
+using Managesio.Core.Modules.EmailModule.Dtos;
 using Managesio.Core.Modules.EmailModule.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ public class EmailController
 
     [HttpPost]
     [Route("send")]
-    public async Task SendEmail()
+    public async Task SendEmail([FromBody] SendEmailRequest model)
     {
-        await _emailService.SendEmail();
+        await _emailService.SendEmailAsync(model.ToEmail, model.Subject, model.Content);
     }
 
 }

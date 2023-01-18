@@ -1,43 +1,41 @@
 using Agoda.IoC.Core;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+using Managesio.Core.Modules.EmailModule.Models;
 
 namespace Managesio.Core.Modules.EmailModule.Services;
 
 public interface IEmailService
 {
-    public Task SendEmail();
+    public Task SendEmailAsync(string toEmail, string subject, string content);
 }
 
 [RegisterSingleton]
 public class EmailService : IEmailService
 {
-    private readonly ISendGridClient _sendGridClient;
+    private readonly IEmailRepository _emailRepository;
     private readonly IConfiguration _configuration;
 
-    public EmailService(ISendGridClient sendGridClient, IConfiguration configuration)
+    public EmailService(IEmailRepository emailRepository, IConfiguration configuration)
     {
-        _sendGridClient = sendGridClient;
+        _emailRepository = emailRepository;
         _configuration = configuration;
     }
 
-    public async Task SendEmail()
+    public async Task SendEmailAsync(String toEmail, String subject, String content)
     {
         string fromEmail = _configuration.GetSection("SendGridEmailSettings")
             .GetValue<string>("FromEmail");
  
         string fromName = _configuration.GetSection("SendGridEmailSettings")
             .GetValue<string>("FromName");
-
-        var msg = new SendGridMessage()
+        
+        var email = new Email
         {
-            From = new EmailAddress(fromEmail, fromName),
-            Subject = "Plain Text Email",
-            PlainTextContent = "Hello, WellCome. Have room"
+            FromEmail = fromEmail,
+            FromName = fromName,
+            ToEmail = toEmail,
+            Subject = subject,
+            Content = content
         };
-        msg.AddTo("ict224bj@gmail.com");
-        var response = await _sendGridClient.SendEmailAsync(msg);
-        string message = response.IsSuccessStatusCode ? "Email Send Successfully" : "Failed";
-        Console.WriteLine(message);
+        await _emailRepository.SendEmailAsync(email);
     }
 }
