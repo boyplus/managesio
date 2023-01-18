@@ -45,7 +45,7 @@ public class JwtMiddleware
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var userId = int.Parse(jwtToken.Claims.First(x=>x.Type == "id").Value);
+            Guid userId = Guid.Parse(jwtToken.Claims.First(x=>x.Type == "id").Value);
             var user = await userService.GetByIdAsync(userId);
             
             // attach user to context

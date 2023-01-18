@@ -7,11 +7,13 @@ using Managesio.Core.Configs;
 using Managesio.Core.Entities;
 using Managesio.Core.Exceptions;
 using Managesio.Core.Modules.AuthModule.Dtos;
+using Managesio.Core.Modules.EmailModule.Services;
 using Managesio.Core.Modules.UserModule.Repositories;
 using Managesio.Core.Modules.UserModule.Services;
 using Managesio.Core.Modules.UtilModule;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SendGrid.Helpers.Errors.Model;
 
 namespace Managesio.Core.Modules.AuthModule.Services;
 
@@ -21,14 +23,18 @@ public class AuthService : IAuthService
     private readonly IUserService _userService;
     private readonly IUserRepository _userRepository;
     private readonly IOtpService _otpService;
+    private readonly IEmailService _emailService;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly Secrets _secrets;
     private readonly IMapper _mapper;
-    public AuthService(IUserService userService, IUserRepository userRepository, IOtpService otpService, IHttpContextAccessor httpContextAccessor, IOptions<Secrets> secrets, IMapper mapper)
+
+    public AuthService(IUserService userService, IUserRepository userRepository, IOtpService otpService,
+        IEmailService emailService, IHttpContextAccessor httpContextAccessor, IOptions<Secrets> secrets, IMapper mapper)
     {
         _userService = userService;
         _userRepository = userRepository;
         _otpService = otpService;
+        _emailService = emailService;
         _httpContextAccessor = httpContextAccessor;
         _secrets = secrets.Value;
         _mapper = mapper;
@@ -42,12 +48,33 @@ public class AuthService : IAuthService
         {
             throw new AppException("Email is already registered");
         }
-        
+
         var user = _mapper.Map<User>(model);
-        
+
         // hash password and create user
         user.Password = Encrypt(user.Password);
         await _userService.CreateAsync(user);
+        
+        
+        // Send verification email (with OTP)
+        // await SendVerificationEmail(model.Email);
+    }
+
+    public async Task SendVerificationEmail(string email)
+    {
+        var isVerifiedAndExist = await _userService.IsUserVerifiedByEmailAsync(email);
+        if (isVerifiedAndExist)
+        {
+            throw new AppException("User is already verified or does not exist");
+        }
+
+        var otp = _otpService.Generate6DigitsOtp();
+        await _emailService.SendVerificationEmailAsync(email,otp);
+    }
+
+    public async Task VerifyUser(string email, int otp)
+    {
+        
     }
 
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)

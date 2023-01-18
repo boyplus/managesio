@@ -8,12 +8,23 @@ namespace Managesio.Core.Entities;
 public class User
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [JsonIgnore]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
+    
+    [Required]
     public string Email { get; set; }
+    
+    [Required]
     public string Firstname { get; set; }
+    
+    [Required]
     public string Lastname { get; set; }
+    
+    [Required]
+    public Boolean IsVerified { get; set; }
     public int? Otp { get; set; }
+    public DateTime? OtpExpireAt { get; set; }
 
     [JsonIgnore]
     public List<Todo> Todos { get; set; }

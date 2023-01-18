@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Managesio.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,11 +15,13 @@ namespace Managesio.Core.Migrations
                 name: "user",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    email = table.Column<string>(type: "text", nullable: true),
-                    firstname = table.Column<string>(type: "text", nullable: true),
-                    lastname = table.Column<string>(type: "text", nullable: true),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    email = table.Column<string>(type: "text", nullable: false),
+                    firstname = table.Column<string>(type: "text", nullable: false),
+                    lastname = table.Column<string>(type: "text", nullable: false),
+                    isverified = table.Column<bool>(name: "is_verified", type: "boolean", nullable: false),
+                    otp = table.Column<int>(type: "integer", nullable: true),
+                    otpexpireat = table.Column<DateTime>(name: "otp_expire_at", type: "timestamp with time zone", nullable: true),
                     password = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -31,11 +33,10 @@ namespace Managesio.Core.Migrations
                 name: "todo",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title = table.Column<string>(type: "text", nullable: true),
-                    note = table.Column<string>(type: "text", nullable: true),
-                    userid = table.Column<int>(name: "user_id", type: "integer", nullable: false)
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    title = table.Column<string>(type: "text", nullable: false),
+                    note = table.Column<string>(type: "text", nullable: false),
+                    userid = table.Column<Guid>(name: "user_id", type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {

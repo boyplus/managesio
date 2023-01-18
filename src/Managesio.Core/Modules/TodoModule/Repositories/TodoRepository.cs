@@ -36,9 +36,9 @@ public class TodoRepository : ITodoRepository
 
     public async Task CreateAsync(string title, string note)
     {
-        var todo = new Todo { Title = title, Note = note, UserId = 1};
-        await _context.Todos.AddAsync(todo);
-        await _context.SaveChangesAsync();
+        // var todo = new Todo { Title = title, Note = note, UserId = 1};
+        // await _context.Todos.AddAsync(todo);
+        // await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)

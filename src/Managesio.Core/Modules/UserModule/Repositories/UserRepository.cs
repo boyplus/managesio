@@ -7,7 +7,7 @@ namespace Managesio.Core.Modules.UserModule.Repositories;
 
 public interface IUserRepository
 {
-    public Task<User> GetByIdAsync(int id);
+    public Task<User> GetByIdAsync(Guid id);
     public Task<List<User>> GetAllAsync();
     public Task CreateAsync(User user);
     public Task<User> FindByEmail(string email);
@@ -23,7 +23,7 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<User> GetByIdAsync(int id)
+    public async Task<User> GetByIdAsync(Guid id)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         return user;

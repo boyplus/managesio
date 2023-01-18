@@ -45,6 +45,13 @@ public class AuthController : ControllerBase
         return Ok(profile); ;
     }
 
+    [HttpPost]
+    [Route("resend-verification")]
+    public async Task ResendVerificationEmail([FromBody] ResendVerificationEmailRequest model)
+    {
+        
+    }
+
     [HttpGet]
     [Route("user")]
     public async Task<List<User>> GetAllUser()

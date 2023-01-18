@@ -24,23 +24,23 @@ namespace Managesio.Core.Migrations
 
             modelBuilder.Entity("Managesio.Core.Entities.Todo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("note");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
@@ -54,28 +54,37 @@ namespace Managesio.Core.Migrations
 
             modelBuilder.Entity("Managesio.Core.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("email");
 
                     b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("firstname");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_verified");
+
                     b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("lastname");
 
                     b.Property<int?>("Otp")
                         .HasColumnType("integer")
                         .HasColumnName("otp");
+
+                    b.Property<DateTime?>("OtpExpireAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("otp_expire_at");
 
                     b.Property<string>("Password")
                         .HasColumnType("text")

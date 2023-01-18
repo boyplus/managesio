@@ -7,11 +7,16 @@ namespace Managesio.Core.Entities;
 [Table("todo")]
 public class Todo
 {
-    [Key] 
-    public int Id { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
+    
+    [Required]
     public string Title { get; set; }
+    
+    [Required]
     public string Note { get; set; }
     
     [JsonIgnore]
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
 }
