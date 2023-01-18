@@ -322,3 +322,4 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/macos,aspnetcore,react
 
 /src/Managesio.WebApi/wwwroot
+/src/Managesio.WebApi/appsettings.Development.json

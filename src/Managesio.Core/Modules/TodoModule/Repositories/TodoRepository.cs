@@ -18,10 +18,9 @@ public class TodoRepository : ITodoRepository
         _mapper = mapper;
     }
     
-    public async Task<List<Todo>> GetAllAsync()
+    public Task<List<Todo>> GetAllAsync()
     {
-        var todos = await _context.Todos.ToListAsync();
-        Console.WriteLine("complete in repo");
+        var todos = _context.Todos.ToListAsync();
         return todos;
     }
 

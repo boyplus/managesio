@@ -36,6 +36,7 @@ var secrets = configuration.GetSection(nameof(Secrets)).Get<Secrets>();
 builder.Services.Configure<Secrets>(configuration.GetSection(nameof(Secrets)));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddPostgresDbConnection(secrets);
+builder.Services.AddSendGridClient(secrets);
 
 builder.Services.AutoWireAssembly(new[] { typeof(AssemblyInfo).Assembly },false);
 

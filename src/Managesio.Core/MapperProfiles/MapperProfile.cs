@@ -10,6 +10,6 @@ public class MapperProfile : Profile
     public MapperProfile()
     {
         CreateMap<UpdateTodoRequest, Todo>();
-        CreateMap<RegisterUserRequest, Entities.User>();
+        CreateMap<RegisterUserRequest, User>();
     }
 }

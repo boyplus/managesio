@@ -20,8 +20,7 @@ public class TodoController : ControllerBase
     [SwaggerOperation("Get_Todos")]
     public async Task<ActionResult<List<Todo>>> GetTodos()
     {
-        var todos = await _todoService.GetAllAsync();
-        Console.WriteLine("complete get todo in controller");
+        var todos =  await _todoService.GetAllAsync();
         return Ok(todos);
     }
 
