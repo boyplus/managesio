@@ -52,6 +52,13 @@ public class AuthController : ControllerBase
         
     }
 
+    [HttpPost]
+    [Route("verify")]
+    public async Task VerifyUser([FromBody] VerifyUserRequest model)
+    {
+        await _authService.VerifyUser(model.Email, model.Otp);
+    }
+
     [HttpGet]
     [Route("user")]
     public async Task<List<User>> GetAllUser()

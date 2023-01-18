@@ -9,4 +9,5 @@ public interface IAuthService
     public Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
     public User GetProfileAsync();
     public Task SendVerificationEmail(string email);
+    public Task VerifyUser(string email, int otp);
 }

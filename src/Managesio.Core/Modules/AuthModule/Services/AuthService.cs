@@ -57,24 +57,41 @@ public class AuthService : IAuthService
         
         
         // Send verification email (with OTP)
-        // await SendVerificationEmail(model.Email);
+        await SendVerificationEmail(model.Email);
     }
 
     public async Task SendVerificationEmail(string email)
     {
-        var isVerifiedAndExist = await _userService.IsUserVerifiedByEmailAsync(email);
-        if (isVerifiedAndExist)
+        var user = await _userRepository.FindByEmail(email);
+        if (user != null && user.IsVerified)
         {
             throw new AppException("User is already verified or does not exist");
         }
 
+        // Generate OTP and save it to user
         var otp = _otpService.Generate6DigitsOtp();
+        var expireAt = DateTime.UtcNow.AddMinutes(5);
+        
+        await _userRepository.SaveOtpAsync(user, otp, expireAt);
         await _emailService.SendVerificationEmailAsync(email,otp);
     }
 
     public async Task VerifyUser(string email, int otp)
     {
-        
+        var user = await _userRepository.FindByEmail(email);
+        if (user == null)
+        {
+            throw new AppException("User does not exist");
+        }
+
+        if (user.Otp == otp && DateTime.UtcNow <= user.OtpExpireAt)
+        {
+            await _userRepository.VerifyUser(user);
+        }
+        else
+        {
+            throw new AppException("OTP is invalid or expired");
+        }
     }
 
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)

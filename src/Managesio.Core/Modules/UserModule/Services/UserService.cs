@@ -8,8 +8,7 @@ public interface IUserService
     public Task<User> GetByIdAsync(Guid id);
     public Task<List<User>> GetAllAsync();
     public Task CreateAsync(User user);
-    public Task<Boolean> IsUserVerifiedByEmailAsync(string email);
-    public Task SaveOtp(int userId, int otp);
+    public Task SaveOtp(Guid userId, int otp);
 }
 
 [RegisterPerRequest]
@@ -38,13 +37,7 @@ public class UserService : IUserService
         await _userRepository.CreateAsync(user);
     }
 
-    public async Task<Boolean> IsUserVerifiedByEmailAsync(string email)
-    {
-        var user = await _userRepository.FindByEmail(email);
-        return user != null && user.IsVerified;
-    }
-
-    public async Task SaveOtp(int userId, int otp)
+    public async Task SaveOtp(Guid userId, int otp)
     {
         
     }

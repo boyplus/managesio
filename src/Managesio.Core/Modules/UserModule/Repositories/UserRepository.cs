@@ -11,6 +11,8 @@ public interface IUserRepository
     public Task<List<User>> GetAllAsync();
     public Task CreateAsync(User user);
     public Task<User> FindByEmail(string email);
+    public Task SaveOtpAsync(User user, int otp, DateTime expireAt);
+    public Task VerifyUser(User user);
 }
 
 [RegisterPerRequest]
@@ -45,5 +47,20 @@ public class UserRepository : IUserRepository
     {
         var user = await _context.Users.SingleOrDefaultAsync(x=> x.Email == email);
         return user;
+    }
+
+    public async Task SaveOtpAsync(User user,int otp, DateTime expireAt)
+    {
+        user.Otp = otp;
+        user.OtpExpireAt = expireAt;
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task VerifyUser(User user)
+    {
+        user.IsVerified = true;
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
     }
 }
