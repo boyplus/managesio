@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using Managesio.Core.Exceptions;
+using SendGrid.Helpers.Errors.Model;
 
 namespace Managesio.Core.Middlewares;
 
@@ -34,6 +35,10 @@ public class ErrorHandlerMiddleware
                 case KeyNotFoundException e:
                     // Not Found Error
                     response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
+                case UnauthorizedException e:
+                    // Unauthorized error
+                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     break;
                 default:
                     _logger.LogError(error, error.Message);

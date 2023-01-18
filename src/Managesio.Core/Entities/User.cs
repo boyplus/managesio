@@ -22,8 +22,13 @@ public class User
     public string Lastname { get; set; }
     
     [Required]
+    [JsonIgnore]
     public Boolean IsVerified { get; set; }
+    
+    [JsonIgnore]
     public int? Otp { get; set; }
+    
+    [JsonIgnore]
     public DateTime? OtpExpireAt { get; set; }
 
     [JsonIgnore]

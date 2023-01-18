@@ -99,7 +99,12 @@ public class AuthService : IAuthService
         var user = await _userRepository.FindByEmail(model.Email);
         if (user == null || !Verify(model.Password, user.Password))
         {
-            return null;
+            throw new UnauthorizedException("Email or password is incorrect");
+        }
+
+        if (!user.IsVerified)
+        {
+            throw new UnauthorizedException("User is not verified. Please verify your account");
         }
 
         var token = GenerateJwtToken(user);
