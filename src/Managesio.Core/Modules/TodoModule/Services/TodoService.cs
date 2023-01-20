@@ -4,14 +4,13 @@ using Managesio.Core.Modules.TodoModule.Dtos;
 using Managesio.Core.Modules.TodoModule.Repositories;
 
 namespace Managesio.Core.Modules.TodoModule.Services;
-
 public interface ITodoService
 {
-    public Task<List<Todo>> GetAllAsync();
-    public Task<Todo> GetByIdAsync(int id);
-    public Task CreateAsync(string title, string note);
-    public Task DeleteAsync(int id);
-    public Task UpdateAsync(int id, UpdateTodoRequest todoRequest);
+    public Task<List<Todo>> GetAllAsync(Guid userId);
+    public Task<Todo> GetByIdAsync(Guid userId, Guid todoId);
+    public Task CreateAsync(Guid userId, string title, string note);
+    public Task DeleteAsync(Guid userId, Guid todoId);
+    public Task UpdateAsync(Guid userId, Guid todoId, UpdateTodoRequest todoRequest);
 }
 
 [RegisterPerRequest]
@@ -23,30 +22,30 @@ public class TodoService : ITodoService
         _todoRepository = todoRepository;
     }
 
-    public Task<List<Todo>> GetAllAsync()
+    public Task<List<Todo>> GetAllAsync(Guid userId)
     {
-        var todos1 =  _todoRepository.GetAllAsync();
-        return todos1;
+        var todos =  _todoRepository.GetAllAsync(userId);
+        return todos;
     }
 
-    public Task<Todo> GetByIdAsync(int id)
+    public async Task<Todo> GetByIdAsync(Guid userId, Guid todoId)
     {
-        var todo = _todoRepository.GetByIdAsync(id); 
+        var todo = await _todoRepository.GetByIdAsync(userId, todoId); 
         return todo;
     }
 
-    public Task CreateAsync(string title, string note)
+    public Task CreateAsync(Guid userId, string title, string note)
     {
-        return _todoRepository.CreateAsync(title,note);
+        return _todoRepository.CreateAsync(userId,title,note);
     }
 
-    public Task DeleteAsync(int id)
+    public Task DeleteAsync(Guid userId, Guid todoId)
     {
-        return _todoRepository.DeleteAsync(id);
+        return _todoRepository.DeleteAsync(userId, todoId);
     }
 
-    public Task UpdateAsync(int id, UpdateTodoRequest todo)
+    public Task UpdateAsync(Guid userId, Guid todoId, UpdateTodoRequest todo)
     {
-        return _todoRepository.UpdateAsync(id, todo);
+        return _todoRepository.UpdateAsync(userId, todoId, todo);
     }
 }
