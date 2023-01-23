@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Layout from '../components/layout/Layout';
 
 const Profile: React.FC = () => {
+
   return (
-    <div>
+    <Layout isProtected>
       <h1>Profile</h1>
-    </div>
+    </Layout>
   );
 }
 

@@ -1,14 +1,33 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import NavBar from '../nav/Navbar';
 
-const Layout: React.FC = () => {
+import { User } from '../../api/generated';
+import useFetch from '../../hooks/useFetch';
+import { authApi } from '../../api';
+
+type Props = {
+  children?: React.ReactNode;
+  isProtected?: boolean;
+};
+
+const Layout: React.FC<Props> = ({ children, isProtected = false }) => {
+  const [user, error, isLoading] = useFetch<User>(authApi.getProfile);
+
+  const renderChild = () => {
+    if (isLoading) return <div>Loading...</div>
+    if (isProtected && error) {
+      return <div>Unauthorized</div>
+    }
+    return children;
+  }
+
   return (
     <div>
       <NavBar />
-      <Outlet />
+      {renderChild()}
     </div>
   );
 }
+
 
 export default Layout;
