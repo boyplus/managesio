@@ -1,4 +1,5 @@
 using Managesio.Core.Attributes;
+using Managesio.Core.Entities;
 using Managesio.Core.Models;
 using Managesio.Core.Modules.ProjectModule.Dtos;
 using Managesio.Core.Modules.ProjectModule.Services;
@@ -28,5 +29,15 @@ public class ProjectController : ControllerBase
         var userId = _apiContext.User.Id;
         await _projectService.CreateAsync(userId, model);
         return Ok("Project is created");
+    }
+
+    [HttpGet]
+    [Authorize]
+    [SwaggerOperation("Get_Project")]
+    public async Task<ActionResult<List<Project>>> GetProjects()
+    {
+        var userId = _apiContext.User.Id;
+        var projects = await _projectService.GetProjects(userId);
+        return Ok(projects);
     }
 }
