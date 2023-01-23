@@ -1,9 +1,10 @@
 import React from 'react';
-import NavBar from '../nav/Navbar';
+import NavBar from '@/components/nav/Navbar';
 
-import { User } from '../../api/generated';
-import useFetch from '../../hooks/useFetch';
-import { authApi } from '../../api';
+import { User } from '@/api/generated';
+import { authApi } from '@/api';
+
+import useFetch from '@/hooks/useFetch';
 
 type Props = {
   children?: React.ReactNode;
