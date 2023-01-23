@@ -3,6 +3,7 @@ using System;
 using Managesio.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Managesio.Core.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230123085254_RemoveMapped")]
+    partial class RemoveMapped
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,29 +53,6 @@ namespace Managesio.Core.Migrations
                         .HasDatabaseName("ix_project_owner_id");
 
                     b.ToTable("project", (string)null);
-                });
-
-            modelBuilder.Entity("Managesio.Core.Entities.ProjectMember", b =>
-                {
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("project_id");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_id");
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_confirmed");
-
-                    b.HasKey("ProjectId", "UserId")
-                        .HasName("pk_project_member");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_project_member_user_id");
-
-                    b.ToTable("project_member", (string)null);
                 });
 
             modelBuilder.Entity("Managesio.Core.Entities.Todo", b =>
@@ -157,27 +137,6 @@ namespace Managesio.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_project_user_owner_id");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Managesio.Core.Entities.ProjectMember", b =>
-                {
-                    b.HasOne("Managesio.Core.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_project_member_project_project_id");
-
-                    b.HasOne("Managesio.Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_project_member_user_user_id");
-
-                    b.Navigation("Project");
 
                     b.Navigation("User");
                 });

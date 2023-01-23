@@ -1,9 +1,12 @@
 using Managesio.Core.Attributes;
 using Managesio.Core.Entities;
+using Managesio.Core.Exceptions;
 using Managesio.Core.Models;
 using Managesio.Core.Modules.ProjectModule.Dtos;
 using Managesio.Core.Modules.ProjectModule.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Managesio.WebApi.Controllers;
@@ -39,5 +42,22 @@ public class ProjectController : ControllerBase
         var userId = _apiContext.User.Id;
         var projects = await _projectService.GetProjects(userId);
         return Ok(projects);
+    }
+
+    [HttpPost]
+    [Authorize]
+    [Route("invite/{id}")]
+    [SwaggerOperation("Invite_Project_Members")]
+    public async Task<ActionResult> InViteProjectMembers([FromBody] InviteProjectMemberRequest model, [FromRoute] Guid id)
+    {
+        try
+        {
+            await _projectService.InviteProjectMembers(id,model.Emails);
+            return Ok("Project members are invited");
+        }
+        catch (DbUpdateException e)
+        {
+            throw new AppException("Some members are already exists");
+        }
     }
 }

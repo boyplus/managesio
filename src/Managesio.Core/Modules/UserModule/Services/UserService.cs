@@ -8,7 +8,9 @@ public interface IUserService
     public Task<User> GetByIdAsync(Guid id);
     public Task<List<User>> GetAllAsync();
     public Task CreateAsync(User user);
-    public Task SaveOtp(Guid userId, int otp);
+    public Task<List<User>> SearchByEmail(string email);
+    public Task<User> FindByEmail(string email);
+    public List<User> GetUsersFromEmails(List<string> emails);
 }
 
 [RegisterPerRequest]
@@ -33,12 +35,25 @@ public class UserService : IUserService
     }
 
     public async Task CreateAsync(User user)
-    { 
+    {
         await _userRepository.CreateAsync(user);
     }
-
-    public async Task SaveOtp(Guid userId, int otp)
+    
+    public Task<User> FindByEmail(string email)
     {
-        
+        var user = _userRepository.FindByEmail(email);
+        return user;
+    }
+
+    public Task<List<User>> SearchByEmail(string email)
+    {
+        var users = _userRepository.SearchByEmail(email);
+        return users;
+    }
+
+    public List<User> GetUsersFromEmails(List<string> emails)
+    {
+        var users = emails.Select(email => _userRepository.FindByEmail(email).Result).ToList();
+        return users;
     }
 }

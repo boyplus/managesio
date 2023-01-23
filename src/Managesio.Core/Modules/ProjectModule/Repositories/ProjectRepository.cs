@@ -10,13 +10,13 @@ public interface IProjectRepository
     public Task<List<Project>> GetProjects(Guid userId);
     public Task CreateAsync(string name, string description, Guid ownerId);
     public Task UpdateAsync(Guid id, string name, string description, Guid ownerId);
+    public Task InviteProjectMembers(List<Guid> userIds, Guid projectId);
 }
 
 [RegisterPerRequest]
 public class ProjectRepository : IProjectRepository
 {
     private readonly ApiDbContext _context;
-
     public ProjectRepository(ApiDbContext context)
     {
         _context = context;
@@ -38,5 +38,17 @@ public class ProjectRepository : IProjectRepository
     public Task UpdateAsync(Guid id, string name, string description, Guid ownerId)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task InviteProjectMembers(List<Guid> userIds, Guid projectId)
+    {
+        var projectMembers = userIds.Select(userId => new ProjectMember
+        {
+            ProjectId = projectId,
+            UserId = userId,
+            IsConfirmed = false
+        });
+        await _context.ProjectMembers.AddRangeAsync(projectMembers);
+        await _context.SaveChangesAsync();
     }
 }

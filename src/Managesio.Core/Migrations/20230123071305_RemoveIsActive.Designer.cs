@@ -3,6 +3,7 @@ using System;
 using Managesio.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Managesio.Core.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230123071305_RemoveIsActive")]
+    partial class RemoveIsActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +57,15 @@ namespace Managesio.Core.Migrations
 
             modelBuilder.Entity("Managesio.Core.Entities.ProjectMember", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_confirmed");
+
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uuid")
                         .HasColumnName("project_id");
@@ -62,12 +74,11 @@ namespace Managesio.Core.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_confirmed");
-
-                    b.HasKey("ProjectId", "UserId")
+                    b.HasKey("Id")
                         .HasName("pk_project_member");
+
+                    b.HasIndex("ProjectId")
+                        .HasDatabaseName("ix_project_member_project_id");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_project_member_user_id");

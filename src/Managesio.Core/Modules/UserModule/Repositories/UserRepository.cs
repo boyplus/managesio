@@ -11,6 +11,7 @@ public interface IUserRepository
     public Task<List<User>> GetAllAsync();
     public Task CreateAsync(User user);
     public Task<User> FindByEmail(string email);
+    public Task<List<User>> SearchByEmail(string email);
     public Task SaveOtpAsync(User user, int otp, DateTime expireAt);
     public Task VerifyUser(User user);
 }
@@ -43,9 +44,9 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<User> FindByEmail(string email)
+    public Task<User> FindByEmail(string email)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(x=> x.Email == email);
+        var user = _context.Users.SingleOrDefaultAsync(x=> x.Email == email);
         return user;
     }
 
@@ -62,5 +63,11 @@ public class UserRepository : IUserRepository
         user.IsVerified = true;
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
+    }
+
+    public Task<List<User>> SearchByEmail(string email)
+    {
+        var users = _context.Users.Where(user => EF.Functions.Like(user.Email, $"{email}%") && user.IsVerified).ToListAsync();
+        return users;
     }
 }
