@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Managesio.Core.Entities;
 
@@ -15,4 +16,10 @@ public class ProjectMember
     
     public User User { get; set; }
     public Guid UserId { get; set; }
+    
+    [JsonIgnore]
+    public Boolean IsActive { get; set; }
+    
+    [JsonIgnore]
+    public Boolean IsConfirmed { get; set; }
 }
