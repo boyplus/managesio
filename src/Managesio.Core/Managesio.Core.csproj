@@ -24,4 +24,10 @@
       <PackageReference Include="SendGrid.Extensions.DependencyInjection" Version="1.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Modules\ProjectModule\Dtos" />
+      <Folder Include="Modules\ProjectModule\Repositories" />
+      <Folder Include="Modules\ProjectModule\Services" />
+    </ItemGroup>
+
 </Project>

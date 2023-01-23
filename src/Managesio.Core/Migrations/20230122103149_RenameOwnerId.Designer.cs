@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Managesio.Core.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230118153659_InitCreate")]
-    partial class InitCreate
+    [Migration("20230122103149_RenameOwnerId")]
+    partial class RenameOwnerId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,36 @@ namespace Managesio.Core.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Managesio.Core.Entities.Project", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_project");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_project_user_id");
+
+                    b.ToTable("project", (string)null);
+                });
 
             modelBuilder.Entity("Managesio.Core.Entities.Todo", b =>
                 {
@@ -97,6 +127,18 @@ namespace Managesio.Core.Migrations
                         .HasName("pk_user");
 
                     b.ToTable("user", (string)null);
+                });
+
+            modelBuilder.Entity("Managesio.Core.Entities.Project", b =>
+                {
+                    b.HasOne("Managesio.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_project_user_user_id");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Managesio.Core.Entities.Todo", b =>

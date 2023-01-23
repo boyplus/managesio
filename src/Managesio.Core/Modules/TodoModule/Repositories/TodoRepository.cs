@@ -26,7 +26,7 @@ public class TodoRepository : ITodoRepository
 
     public async Task<Todo> GetByIdAsync(Guid userId, Guid todoId)
     {
-        var todo = await _context.Todos.Where(todo => todo.UserId == userId && todo.Id == todoId)
+        var todo = await _context.Todos.Where(todo => todo.Id == todoId && todo.UserId == userId)
             .SingleOrDefaultAsync();
         if (todo == null)
         {

@@ -30,7 +30,7 @@ public class TodoService : ITodoService
 
     public async Task<Todo> GetByIdAsync(Guid userId, Guid todoId)
     {
-        var todo = await _todoRepository.GetByIdAsync(userId, todoId); 
+        var todo = await _todoRepository.GetByIdAsync(userId, todoId);
         return todo;
     }
 

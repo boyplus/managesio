@@ -52,20 +52,20 @@ public class TodoController : ControllerBase
     [HttpPatch]
     [Route("{id}")]
     [SwaggerOperation("Update_Todo")]
-    public async Task<ActionResult> UpdateTodo([FromBody] UpdateTodoRequest todo,[FromRoute] Guid todoId)
+    public async Task<ActionResult> UpdateTodo([FromBody] UpdateTodoRequest todo,[FromRoute] Guid id)
     {
         var userId = _apiContext.User.Id;
-        await _todoService.UpdateAsync(userId, todoId, todo);
+        await _todoService.UpdateAsync(userId, id, todo);
         return Ok();
     }
 
     [HttpDelete]
     [Route("{id}")]
     [SwaggerOperation("Delete_Todo")]
-    public async Task<ActionResult> DeleteTodo([FromRoute] Guid todoId)
+    public async Task<ActionResult> DeleteTodo([FromRoute] Guid id)
     {
         var userId = _apiContext.User.Id;
-        await _todoService.DeleteAsync(userId, todoId);
+        await _todoService.DeleteAsync(userId, id);
         return Ok();
     }
 }
