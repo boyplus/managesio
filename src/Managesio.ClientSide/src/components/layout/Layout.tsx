@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = ({ children, isProtected = false }) => {
-  const [user, error, isLoading] = useFetch<User>(authApi.getProfile);
+  const { data: user, error, isLoading } = useFetch<User>(authApi.getProfile);
 
   const renderChild = () => {
     if (isLoading) return <div>Loading...</div>

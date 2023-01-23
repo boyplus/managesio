@@ -3,10 +3,15 @@ import { useEffect, useState } from 'react';
 
 const useFetch = <T>(
   fetch: (options?: AxiosRequestConfig) => Promise<AxiosResponse<T, any>>
-): [T | undefined, any, boolean] => {
+): {
+  data: T | undefined;
+  status: number | undefined;
+  error: any;
+  isLoading: boolean;
+} => {
   const [data, setUser] = useState<T>();
   const [error, setError] = useState<any>();
-  const [status, setStatus] = useState<any>();
+  const [status, setStatus] = useState<number>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchData = async () => {
@@ -30,7 +35,7 @@ const useFetch = <T>(
     fetchData();
   }, []);
 
-  return [data, error, isLoading];
+  return { data, error, status, isLoading };
 };
 
 export default useFetch;
