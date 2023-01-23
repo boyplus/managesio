@@ -11,6 +11,7 @@ public interface IProjectRepository
     public Task CreateAsync(string name, string description, Guid ownerId);
     public Task UpdateAsync(Guid id, string name, string description, Guid ownerId);
     public Task InviteProjectMembers(List<Guid> userIds, Guid projectId);
+    public Task<ProjectMember> FindMember(Guid userId, Guid projectId);
 }
 
 [RegisterPerRequest]
@@ -50,5 +51,11 @@ public class ProjectRepository : IProjectRepository
         });
         await _context.ProjectMembers.AddRangeAsync(projectMembers);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<ProjectMember> FindMember(Guid userId, Guid projectId)
+    {
+        var member = await _context.ProjectMembers.Where(member=>member.UserId == userId && member.ProjectId == projectId).SingleOrDefaultAsync();
+        return member;
     }
 }

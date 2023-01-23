@@ -11,6 +11,7 @@ public interface IProjectService
     public Task<List<Project>> GetProjects(Guid userId);
     public Task CreateAsync(Guid userId, CreateProjectRequest model);
     public Task InviteProjectMembers(Guid projectId, List<string> emails);
+    public Task<bool> IsUserInvitedToProject(Guid projectId, string email);
 }
 
 [RegisterPerRequest]
@@ -35,13 +36,18 @@ public class ProjectService : IProjectService
     {
         return _projectRepository.CreateAsync(model.Name, model.Description, userId);
     }
-    
+
+    public async Task<bool> IsUserInvitedToProject(Guid projectId, string email)
+    {
+        var user = await _userService.FindByEmail(email);
+        var member = await _projectRepository.FindMember(user.Id, projectId);
+        return member != null;
+    }
+
     public async Task InviteProjectMembers(Guid projectId, List<string> emails)
     {
-        Console.WriteLine("start service");
         var users = _userService.GetUsersFromEmails(emails);
         var userIds = users.Select(user => user.Id).ToList();
-        Console.WriteLine("start repo");
         await _projectRepository.InviteProjectMembers(userIds, projectId);
     }
 }

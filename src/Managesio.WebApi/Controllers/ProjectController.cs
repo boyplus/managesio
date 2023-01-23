@@ -6,7 +6,6 @@ using Managesio.Core.Modules.ProjectModule.Dtos;
 using Managesio.Core.Modules.ProjectModule.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Managesio.WebApi.Controllers;
@@ -42,6 +41,16 @@ public class ProjectController : ControllerBase
         var userId = _apiContext.User.Id;
         var projects = await _projectService.GetProjects(userId);
         return Ok(projects);
+    }
+
+    [HttpPost]
+    [Authorize]
+    [Route("invite/check/{id}")]
+    [SwaggerOperation("Check_Invite_Project_Member")]
+    public async Task<ActionResult> CheckInviteMember([FromBody] CheckInviteMemberRequest model, [FromRoute] Guid id)
+    {
+        var isInvited = await _projectService.IsUserInvitedToProject(id, model.Email);
+        return Ok(isInvited);
     }
 
     [HttpPost]
