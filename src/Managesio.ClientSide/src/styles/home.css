@@ -1,0 +1,32 @@
+.container {
+  background: rgb(27,77,62);
+  background: linear-gradient(90deg, rgba(27,77,62,1) 0%, rgba(1,135,73,1) 67%, rgba(23,177,105,1) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+}
+
+.try-it-free {
+  margin-top: 10px;
+  background-color:rgba(255,255,255,1);
+  border: none;
+  color: black;
+  padding: 12px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+.try-it-free:hover {
+  background-color:rgba(255,255,255,0.95);
+  cursor: pointer;
+}
+
+.try-it-free a{
+  color: black;
+  font-size: 16px;
+}

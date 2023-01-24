@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PrimaryButton from '@/components/button/PrimaryButton';
+import PrimaryButton from '@/components/button/Button';
 
 import './navbar.css';
 
