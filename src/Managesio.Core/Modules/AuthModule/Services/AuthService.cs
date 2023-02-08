@@ -63,7 +63,7 @@ public class AuthService : IAuthService
     public async Task SendVerificationEmail(string email)
     {
         var user = await _userRepository.FindByEmail(email);
-        if (user != null && user.IsVerified)
+        if (user is { IsVerified: true })
         {
             throw new AppException("User is already verified or does not exist");
         }

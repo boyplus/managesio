@@ -1,5 +1,6 @@
 import React from 'react';
-import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
+import { withFormik, FormikProps, FormikErrors, Form } from 'formik';
+import Input from '@/components/common/form/Input';
 
 export interface CreateAccountFormValues {
   email: string;
@@ -15,13 +16,24 @@ const InnerForm = (props: OwnProps & FormikProps<CreateAccountFormValues>) => {
   return (
     <Form className='form-container'>
       <h2>{title}</h2>
+      <Input
+        type="email"
+        name="email"
+        label="Email"
+        placeholder='Email'
+        touched={touched.email}
+        error={errors.email}
+      />
+      <Input
+        type="password"
+        name="password"
+        label="Password"
+        placeholder='Password'
+        touched={touched.password}
+        error={errors.password}
+      />
 
-      <Field type="password" name="password" />
-      {touched.password && errors.password && <div>{errors.password}</div>}
 
-      <button type="submit" disabled={isSubmitting}>
-        Submit
-      </button>
     </Form>
   );
 };
